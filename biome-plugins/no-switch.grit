@@ -1,0 +1,5 @@
+language js
+
+JsSwitchStatement() as $statement where {
+  register_diagnostic(span=$statement, message="Use one `if` per member and a `never` tail instead of switch.")
+}

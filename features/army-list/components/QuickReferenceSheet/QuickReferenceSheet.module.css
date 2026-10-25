@@ -1,0 +1,180 @@
+/* Denser type than the full sheet, so a 1000 point list fits on one A4 page. */
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-8);
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.25;
+}
+
+.table {
+  width: 100%;
+
+  & thead th {
+    padding: var(--ds-space-2) var(--ds-space-4);
+    font:
+      var(--ds-font-weight-bold) var(--ds-font-size-2xs) / 1.2
+      var(--ds-font-family-body);
+    color: var(--ds-color-text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: var(--ds-rule-thin) solid var(--ds-color-border-soft);
+    vertical-align: bottom;
+  }
+
+  & td {
+    padding: var(--ds-space-2) var(--ds-space-4);
+    vertical-align: top;
+  }
+}
+
+.platoon {
+  break-inside: avoid;
+}
+
+.platoonCell {
+  padding: var(--ds-space-8) 0 var(--ds-space-2);
+  border-bottom: 1.5pt solid var(--ds-color-border);
+}
+
+.platoonHeading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--ds-space-8);
+}
+
+.platoonLabel {
+  font:
+    var(--ds-font-weight-heavy) var(--ds-font-size-lg) / 1.2
+    var(--ds-font-family-body);
+  letter-spacing: var(--ds-letter-spacing-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.platoonSelector {
+  flex: 1;
+  font-style: italic;
+  font-weight: var(--ds-font-weight-regular);
+  color: var(--ds-color-text-secondary);
+}
+
+.platoonTotals {
+  font-weight: var(--ds-font-weight-bold);
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+
+.unitRow {
+  break-inside: avoid;
+
+  & td {
+    border-bottom: var(--ds-rule-hairline) solid var(--ds-color-rule-faint);
+  }
+
+  &:nth-child(even) td {
+    background: var(--ds-color-paper-tint);
+  }
+}
+
+.unitName {
+  width: 28%;
+  font-weight: var(--ds-font-weight-bold);
+}
+
+.centred {
+  width: 5%;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: var(--ds-font-size-2xs);
+  letter-spacing: 0.06em;
+}
+
+.numeric {
+  width: 5%;
+  text-align: right;
+  font-weight: var(--ds-font-weight-bold);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.loadout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+  padding: 0;
+  list-style: none;
+
+  & & {
+    padding-left: var(--ds-space-12);
+  }
+}
+
+.weapon,
+.vehicle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--ds-space-6);
+}
+
+.vehicle {
+  flex-direction: column;
+}
+
+.quantity {
+  font-weight: var(--ds-font-weight-bold);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.weaponName {
+  font-weight: var(--ds-font-weight-medium);
+}
+
+.stats {
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+
+.notes {
+  font-style: italic;
+  color: var(--ds-color-ink-soft);
+}
+
+.option {
+  font-style: italic;
+}
+
+.rules {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+  break-inside: avoid;
+}
+
+.rulesHeading {
+  padding-bottom: var(--ds-space-2);
+  border-bottom: 1.5pt solid var(--ds-color-border);
+  font:
+    var(--ds-font-weight-heavy) var(--ds-font-size-lg) / 1.2
+    var(--ds-font-family-body);
+  letter-spacing: var(--ds-letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.ruleList {
+  columns: 3;
+  column-gap: var(--ds-space-12);
+  padding: 0;
+  list-style: none;
+}
+
+.rule {
+  break-inside: avoid;
+}
+
+.ruleName {
+  font-weight: var(--ds-font-weight-bold);
+}
+
+.ruleReference {
+  color: var(--ds-color-text-secondary);
+}

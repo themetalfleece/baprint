@@ -1,0 +1,1 @@
+export { Platoon } from "./Platoon";

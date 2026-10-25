@@ -1,0 +1,26 @@
+.button {
+  font: var(--ds-font-label);
+  padding: var(--ds-space-4) var(--ds-space-12);
+  border: var(--ds-rule-regular) solid var(--ds-color-border);
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-color-surface);
+  color: var(--ds-color-text);
+  letter-spacing: var(--ds-letter-spacing-label);
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: var(--ds-color-paper-shade);
+  }
+
+  &:disabled {
+    color: var(--ds-color-ink-faint);
+    border-color: var(--ds-color-rule);
+    cursor: not-allowed;
+  }
+}
+
+.primary {
+  border-width: 1.5pt;
+  font-weight: var(--ds-font-weight-heavy);
+}

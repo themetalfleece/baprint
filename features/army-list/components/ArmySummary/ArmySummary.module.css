@@ -1,0 +1,56 @@
+.summary {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--ds-space-12);
+  padding-bottom: var(--ds-space-6);
+  border-bottom: var(--ds-rule-thick) solid var(--ds-color-border);
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+}
+
+.title {
+  font: var(--ds-font-title);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.countries {
+  font-size: var(--ds-font-size-md);
+  font-style: italic;
+  color: var(--ds-color-text-secondary);
+}
+
+.stats {
+  display: flex;
+  gap: var(--ds-space-6);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--ds-space-3) var(--ds-space-8);
+  border: 1.2pt solid var(--ds-color-border);
+  border-radius: var(--ds-radius-sm);
+}
+
+.statLabel {
+  font:
+    var(--ds-font-weight-bold) var(--ds-font-size-2xs) / 1.2
+    var(--ds-font-family-body);
+  color: var(--ds-color-text-secondary);
+  letter-spacing: var(--ds-letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.statValue {
+  font:
+    var(--ds-font-weight-heavy) var(--ds-font-size-lg) / 1.2
+    var(--ds-font-family-body);
+  font-variant-numeric: lining-nums tabular-nums;
+}

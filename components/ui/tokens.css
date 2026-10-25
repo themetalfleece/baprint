@@ -1,0 +1,78 @@
+/*
+ * Design tokens. Ink on white paper, black and greys only, so a sheet prints
+ * the same on a mono or colour printer. Sizes are in points to match print.
+ */
+:root {
+  color-scheme: light;
+
+  /* Palette */
+  --ds-color-paper: #fff;
+  --ds-color-paper-tint: #fafafa;
+  --ds-color-paper-shade: #f2f2f2;
+  --ds-color-ink: #111;
+  --ds-color-ink-soft: #333;
+  --ds-color-ink-muted: #555;
+  --ds-color-ink-faint: #777;
+  --ds-color-rule: #999;
+  --ds-color-rule-faint: #ccc;
+
+  /* Roles */
+  --ds-color-surface: var(--ds-color-paper);
+  --ds-color-text: var(--ds-color-ink);
+  --ds-color-text-secondary: var(--ds-color-ink-muted);
+  --ds-color-border: var(--ds-color-ink);
+  --ds-color-border-soft: var(--ds-color-rule);
+  --ds-color-focus: var(--ds-color-ink);
+  --ds-color-error: var(--ds-color-ink);
+
+  /* Type */
+  --ds-font-family-body: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --ds-font-size-2xs: 7pt;
+  --ds-font-size-xs: 7.5pt;
+  --ds-font-size-sm: 8.5pt;
+  --ds-font-size-md: 9.5pt;
+  --ds-font-size-base: 10.5pt;
+  --ds-font-size-lg: 11.5pt;
+  --ds-font-size-xl: 15pt;
+  --ds-font-size-2xl: 20pt;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 600;
+  --ds-font-weight-bold: 700;
+  --ds-font-weight-heavy: 800;
+  --ds-font-body:
+    var(--ds-font-weight-regular) var(--ds-font-size-base) / 1.35
+    var(--ds-font-family-body);
+  --ds-font-label:
+    var(--ds-font-weight-bold) var(--ds-font-size-sm) / 1.2
+    var(--ds-font-family-body);
+  --ds-font-heading:
+    var(--ds-font-weight-heavy) var(--ds-font-size-xl) / 1.15
+    var(--ds-font-family-body);
+  --ds-font-title:
+    var(--ds-font-weight-heavy) var(--ds-font-size-2xl) / 1.1
+    var(--ds-font-family-body);
+  --ds-letter-spacing-wide: 0.14em;
+  --ds-letter-spacing-label: 0.1em;
+
+  /* Space */
+  --ds-space-1: 1pt;
+  --ds-space-2: 2pt;
+  --ds-space-3: 3pt;
+  --ds-space-4: 4pt;
+  --ds-space-6: 6pt;
+  --ds-space-8: 8pt;
+  --ds-space-12: 12pt;
+  --ds-space-16: 16pt;
+  --ds-space-24: 24pt;
+
+  /* Lines */
+  --ds-rule-hairline: 0.4pt;
+  --ds-rule-thin: 0.6pt;
+  --ds-rule-regular: 1pt;
+  --ds-rule-thick: 2.5pt;
+  --ds-radius-sm: 3pt;
+  --ds-radius-pill: 8pt;
+
+  /* Layout */
+  --ds-sheet-width: 190mm;
+}

@@ -1,0 +1,125 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "includes": [
+      "**",
+      "!**/next-env.d.ts",
+      "!**/.next",
+      "!**/node_modules",
+      "!**/fixtures"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "trailingCommas": "es5"
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": true
+    },
+    "formatter": {
+      "enabled": true
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "plugins": [
+    "./biome-plugins/no-switch.grit",
+    "./biome-plugins/no-layout-props.grit",
+    "./biome-plugins/no-inline-jsx-handlers.grit",
+    "./biome-plugins/no-conditional-spread.grit",
+    "./biome-plugins/no-chained-nullish.grit",
+    "./biome-plugins/no-underscore-members.grit"
+  ],
+  "linter": {
+    "enabled": true,
+    "domains": {
+      "react": "recommended",
+      "next": "recommended"
+    },
+    "rules": {
+      "preset": "recommended",
+      "correctness": {
+        "noUnusedImports": "error"
+      },
+      "style": {
+        "noNestedTernary": "error",
+        "useImportType": "error",
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "patterns": [
+              {
+                "group": ["../../*", "../../**"],
+                "message": "Use the @/ path alias instead of ../../."
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["components/ui/**", "lib/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["../../*", "../../**"],
+                    "message": "Use the @/ path alias instead of ../../."
+                  },
+                  {
+                    "group": ["@/features/**", "@/app/**"],
+                    "message": "Shared code never imports features or routes."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["features/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["../../*", "../../**"],
+                    "message": "Use the @/ path alias instead of ../../."
+                  },
+                  {
+                    "group": ["@/app/**"],
+                    "message": "Features never import routes."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

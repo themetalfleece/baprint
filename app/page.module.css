@@ -1,0 +1,21 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+  margin-bottom: var(--ds-space-16);
+
+  @media print {
+    display: none;
+  }
+}
+
+.title {
+  font: var(--ds-font-title);
+  letter-spacing: var(--ds-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.lede {
+  max-width: 120mm;
+  color: var(--ds-color-text-secondary);
+}

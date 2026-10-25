@@ -1,0 +1,5 @@
+language js
+
+JsSpread(argument=JsParenthesizedExpression(expression=JsConditionalExpression())) as $spread where {
+  register_diagnostic(span=$spread, message="Set the field inline, or build the object without the absent key.")
+}

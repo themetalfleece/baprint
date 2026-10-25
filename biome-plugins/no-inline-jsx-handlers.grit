@@ -1,0 +1,9 @@
+language js
+
+JsxExpressionAttributeValue(expression=$handler) where {
+  $handler <: or {
+    JsArrowFunctionExpression(),
+    JsFunctionExpression()
+  },
+  register_diagnostic(span=$handler, message="Define the handler in the component body, not inline in JSX.")
+}

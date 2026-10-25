@@ -1,0 +1,53 @@
+/* Global reset and page setup. Import after tokens.css. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font: inherit;
+}
+
+html {
+  background: var(--ds-color-surface);
+  color: var(--ds-color-text);
+  print-color-adjust: exact;
+}
+
+body {
+  font: var(--ds-font-body);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0;
+  text-align: left;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ds-color-focus);
+  outline-offset: 2px;
+}
+
+@page {
+  size: A4;
+  margin: 12mm 11mm 14mm;
+}

@@ -1,0 +1,25 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+}
+
+.label {
+  font: var(--ds-font-label);
+  letter-spacing: var(--ds-letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.input {
+  font: var(--ds-font-body);
+  padding: var(--ds-space-4) var(--ds-space-6);
+  border: var(--ds-rule-regular) solid var(--ds-color-border);
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-color-surface);
+  color: var(--ds-color-text);
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-color-focus);
+    outline-offset: 2px;
+  }
+}

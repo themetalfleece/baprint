@@ -1,0 +1,1 @@
+export { ArmyList } from "./ArmyList";

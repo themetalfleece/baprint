@@ -1,0 +1,5 @@
+language js
+
+`$first ?? $second ?? $third` as $chain where {
+  register_diagnostic(span=$chain, message="Name each candidate and return it behind an early `if`.")
+}

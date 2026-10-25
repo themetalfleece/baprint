@@ -1,0 +1,526 @@
+{
+  "OrderDice": 11,
+  "TotalPoints": 998,
+  "Platoons": [
+    {
+      "Platoon": "Platoon #1",
+      "PlatoonName": "** v3 Armies of the U.S. - Rifle Platoon ** (LW)",
+      "PlatoonSubName": "1000+GIs+and+Paras",
+      "Units": [
+        {
+          "SectionName": "Platoon Commander",
+          "UnitName": "Platoon Commander",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "27",
+          "AtMaxStrength": "true",
+          "UnitPoints": "44",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Infantry with Rifle",
+              "ItemRange": "24\"",
+              "ItemROF": "1",
+              "ItemPEN": "n/a",
+              "ItemNotes": " "
+            },
+            {
+              "ItemSequence": 2,
+              "ItemLine": 2,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Officer with SMG",
+              "ItemRange": "12\"",
+              "ItemROF": "2",
+              "ItemPEN": "n/a",
+              "ItemNotes": "Assault "
+            }
+          ]
+        },
+        {
+          "SectionName": "Infantry",
+          "UnitName": "US Army Rifle Squad",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "32",
+          "AtMaxStrength": "true",
+          "UnitPoints": "100",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemQuantity": 7,
+              "ItemName": "Infantry with Rifle",
+              "ItemRange": "24\"",
+              "ItemROF": "1",
+              "ItemPEN": "n/a",
+              "ItemNotes": " "
+            },
+            {
+              "ItemSequence": 2,
+              "ItemLine": 2,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "NCO with Submachine gun",
+              "ItemRange": "12\"",
+              "ItemROF": "2",
+              "ItemPEN": "n/a",
+              "ItemNotes": "Assault "
+            },
+            {
+              "ItemSequence": 3,
+              "ItemLine": 3,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Infantry with BAR Automatic rifle",
+              "ItemRange": "30\"",
+              "ItemROF": "2",
+              "ItemPEN": "n/a",
+              "ItemNotes": " "
+            }
+          ]
+        },
+        {
+          "SectionName": "Infantry",
+          "UnitName": "US Army Rifle Squad",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "32",
+          "AtMaxStrength": "true",
+          "UnitPoints": "100",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemQuantity": 7,
+              "ItemName": "Infantry with Rifle",
+              "ItemRange": "24\"",
+              "ItemROF": "1",
+              "ItemPEN": "n/a",
+              "ItemNotes": " "
+            },
+            {
+              "ItemSequence": 2,
+              "ItemLine": 2,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "NCO with Submachine gun",
+              "ItemRange": "12\"",
+              "ItemROF": "2",
+              "ItemPEN": "n/a",
+              "ItemNotes": "Assault "
+            },
+            {
+              "ItemSequence": 3,
+              "ItemLine": 3,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Infantry with BAR Automatic rifle",
+              "ItemRange": "30\"",
+              "ItemROF": "2",
+              "ItemPEN": "n/a",
+              "ItemNotes": " "
+            }
+          ]
+        },
+        {
+          "SectionName": "Infantry",
+          "UnitName": "US Paratrooper Squad",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "36",
+          "AtMaxStrength": "true",
+          "UnitPoints": "109",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemQuantity": 7,
+              "ItemName": "Infantry with Rifle",
+              "ItemRange": "24\"",
+              "ItemROF": "1",
+              "ItemPEN": "n/a",
+              "ItemNotes": " "
+            },
+            {
+              "ItemSequence": 2,
+              "ItemLine": 2,
+              "IsVehicle": "false",
+              "ItemName": "Stubborn",
+              "ItemRange": "",
+              "ItemROF": "-",
+              "ItemPen": "-",
+              "ItemNotes": "Stubborn"
+            },
+            {
+              "ItemSequence": 3,
+              "ItemLine": 3,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "NCO with Submachine gun",
+              "ItemRange": "12\"",
+              "ItemROF": "2",
+              "ItemPEN": "n/a",
+              "ItemNotes": "Assault "
+            },
+            {
+              "ItemSequence": 4,
+              "ItemLine": 4,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Infantry with BAR Automatic rifle",
+              "ItemRange": "30\"",
+              "ItemROF": "2",
+              "ItemPEN": "n/a",
+              "ItemNotes": " "
+            }
+          ]
+        },
+        {
+          "SectionName": "Medic",
+          "UnitName": "Medic",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "28",
+          "AtMaxStrength": "true",
+          "UnitPoints": "31",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Medic",
+              "ItemRange": "",
+              "ItemROF": " ",
+              "ItemPEN": " ",
+              "ItemNotes": " Medics"
+            },
+            {
+              "ItemSequence": 2,
+              "ItemLine": 2,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Unarmed Infantry",
+              "ItemRange": "",
+              "ItemROF": " ",
+              "ItemPEN": " ",
+              "ItemNotes": " Unarmed"
+            }
+          ]
+        },
+        {
+          "SectionName": "Anti-tank",
+          "UnitName": "Bazooka Anti-tank Team",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "44",
+          "AtMaxStrength": "true",
+          "UnitPoints": "60",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Bazooka team",
+              "ItemRange": "24\"",
+              "ItemROF": "1",
+              "ItemPEN": "+5",
+              "ItemNotes": "Team (2 men), Shaped Charge "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Platoon": "Platoon #2",
+      "PlatoonName": "*v3 Armies of the U.S. - Armoured Platoon (LW)",
+      "PlatoonSubName": "Sherman+section",
+      "Units": [
+        {
+          "SectionName": "Command Vehicle",
+          "UnitName": "M4A1/A2/A3/A4 Sherman 75mm",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "60",
+          "AtMaxStrength": "true",
+          "UnitPoints": "205",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "true",
+              "ItemQuantity": 1,
+              "ItemName": "M4A1/A2/A3/A4 Sherman 75mm",
+              "ItemMobility": "Tracked",
+              "ItemTransport": "-",
+              "ItemDamageValue": "9+",
+              "ItemNotes": "Easily catches fire"
+            },
+            {
+              "ItemSequence": 2,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "IsGun": "true",
+              "ItemName": "Turret-mounted medium anti-tank gun",
+              "ItemRange": "60\"",
+              "ItemROF": "1",
+              "ItemPen": "+5",
+              "ItemNotes": "(75mm) HE (2\"), Gyro-stabiliser (Veterans only)"
+            },
+            {
+              "ItemSequence": 3,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "IsGun": "true",
+              "ItemName": "Co-axial MMG",
+              "ItemRange": "36\"",
+              "ItemROF": "5",
+              "ItemPen": "n/a",
+              "ItemNotes": ""
+            },
+            {
+              "ItemSequence": 4,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "IsGun": "true",
+              "ItemName": "Forward facing hull-mounted MMG",
+              "ItemRange": "36\"",
+              "ItemROF": "5",
+              "ItemPen": "n/a",
+              "ItemNotes": "Front arc"
+            }
+          ]
+        },
+        {
+          "SectionName": "Cmd Vehicle Options",
+          "UnitName": "Command Vehicle rule",
+          "Source": "Version 3 Rulebook",
+          "SourcePage": "188",
+          "AtMaxStrength": "true",
+          "UnitPoints": "10",
+          "UnitSkill": "",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemName": "Command Vehicle special rule",
+              "ItemRange": "",
+              "ItemROF": "-",
+              "ItemPen": "-",
+              "ItemNotes": ""
+            }
+          ]
+        },
+        {
+          "SectionName": "Vehicle",
+          "UnitName": "M4A1/A2/A3/A4 Sherman 75mm",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "60",
+          "AtMaxStrength": "true",
+          "UnitPoints": "205",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "true",
+              "ItemQuantity": 1,
+              "ItemName": "M4A1/A2/A3/A4 Sherman 75mm",
+              "ItemMobility": "Tracked",
+              "ItemTransport": "-",
+              "ItemDamageValue": "9+",
+              "ItemNotes": "Easily catches fire"
+            },
+            {
+              "ItemSequence": 2,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "IsGun": "true",
+              "ItemName": "Turret-mounted medium anti-tank gun",
+              "ItemRange": "60\"",
+              "ItemROF": "1",
+              "ItemPen": "+5",
+              "ItemNotes": "(75mm) HE (2\"), Gyro-stabiliser (Veterans only)"
+            },
+            {
+              "ItemSequence": 3,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "IsGun": "true",
+              "ItemName": "Co-axial MMG",
+              "ItemRange": "36\"",
+              "ItemROF": "5",
+              "ItemPen": "n/a",
+              "ItemNotes": ""
+            },
+            {
+              "ItemSequence": 4,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "IsGun": "true",
+              "ItemName": "Forward facing hull-mounted MMG",
+              "ItemRange": "36\"",
+              "ItemROF": "5",
+              "ItemPen": "n/a",
+              "ItemNotes": "Front arc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Platoon": "Platoon #3",
+      "PlatoonName": "*v3 Armies of the U.S. - Heavy Weapon Platoon(LW)",
+      "PlatoonSubName": "Support+Group",
+      "Units": [
+        {
+          "SectionName": "Platoon Commander",
+          "UnitName": "Platoon Commander",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "27",
+          "AtMaxStrength": "true",
+          "UnitPoints": "29",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Officer with Pistol",
+              "ItemRange": "6\"",
+              "ItemROF": "1",
+              "ItemPEN": "n/a",
+              "ItemNotes": "Assault "
+            }
+          ]
+        },
+        {
+          "SectionName": "Heavy Weapons",
+          "UnitName": "Medium Machine Gun Team",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "43",
+          "AtMaxStrength": "true",
+          "UnitPoints": "50",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Medium Machine gun team",
+              "ItemRange": "36\"",
+              "ItemROF": "5",
+              "ItemPEN": "n/a",
+              "ItemNotes": "Team (3 men), Fixed "
+            }
+          ]
+        },
+        {
+          "SectionName": "Heavy Weapons",
+          "UnitName": "Medium Mortar Team",
+          "Source": "Armies of the United States (v3)",
+          "SourcePage": "49",
+          "AtMaxStrength": "true",
+          "UnitPoints": "55",
+          "UnitSkill": "Regular",
+          "UnitItems": [
+            {
+              "ItemSequence": 1,
+              "ItemLine": 1,
+              "IsVehicle": "false",
+              "ItemQuantity": 1,
+              "ItemName": "Medium Mortar team",
+              "ItemRange": "12\"-60\"",
+              "ItemROF": "1",
+              "ItemPEN": "HE",
+              "ItemNotes": "Team (3 men), Fixed, Indirect fire, HE (2\") "
+            },
+            {
+              "ItemSequence": 2,
+              "ItemLine": 2,
+              "IsVehicle": "false",
+              "ItemName": "Spotter",
+              "ItemRange": "",
+              "ItemROF": " ",
+              "ItemPen": " ",
+              "ItemNotes": "Spotter"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "PickList": [
+    {
+      "Country": "United States",
+      "Item": "Bazooka team",
+      "Quantity": 1
+    },
+    {
+      "Country": "United States",
+      "Item": "Infantry with BAR Automatic rifle",
+      "Quantity": 3
+    },
+    {
+      "Country": "United States",
+      "Item": "Infantry with Rifle",
+      "Quantity": 22
+    },
+    {
+      "Country": "United States",
+      "Item": "M4A1/A2/A3/A4 Sherman 75mm",
+      "Quantity": 2
+    },
+    {
+      "Country": "United States",
+      "Item": "Medic",
+      "Quantity": 1
+    },
+    {
+      "Country": "United States",
+      "Item": "Medium Machine gun team",
+      "Quantity": 1
+    },
+    {
+      "Country": "United States",
+      "Item": "Medium Mortar team",
+      "Quantity": 1
+    },
+    {
+      "Country": "United States",
+      "Item": "NCO with Submachine gun",
+      "Quantity": 3
+    },
+    {
+      "Country": "United States",
+      "Item": "Officer with Pistol",
+      "Quantity": 1
+    },
+    {
+      "Country": "United States",
+      "Item": "Officer with SMG",
+      "Quantity": 1
+    },
+    {
+      "Country": "United States",
+      "Item": "Spotter",
+      "Quantity": 1
+    },
+    {
+      "Country": "United States",
+      "Item": "Unarmed Infantry",
+      "Quantity": 1
+    }
+  ]
+}

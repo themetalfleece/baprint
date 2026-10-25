@@ -1,0 +1,11 @@
+language js
+
+or {
+  JsPropertyClassMember(name=$name),
+  JsMethodClassMember(name=$name),
+  JsGetterClassMember(name=$name),
+  JsSetterClassMember(name=$name)
+} as $member where {
+  $name <: r"_.*",
+  register_diagnostic(span=$name, message="Use `private` or `#` instead of an underscore prefix.")
+}

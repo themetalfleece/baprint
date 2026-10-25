@@ -1,0 +1,12 @@
+.badge {
+  display: inline-block;
+  font:
+    var(--ds-font-weight-bold) var(--ds-font-size-xs) / 1.6
+    var(--ds-font-family-body);
+  padding: 0 var(--ds-space-6);
+  border: 0.9pt solid var(--ds-color-border);
+  border-radius: var(--ds-radius-pill);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}

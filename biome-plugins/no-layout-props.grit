@@ -1,0 +1,11 @@
+language js
+
+JsxAttribute(name=$name) as $attribute where {
+  $name <: r"(?:display|direction|justifyContent|alignItems|wrap|gap)",
+  $attribute <: within or {
+    JsxOpeningElement(name=$tag),
+    JsxSelfClosingElement(name=$tag)
+  },
+  $tag <: r"[A-Z].*",
+  register_diagnostic(span=$attribute, message="Layout belongs in the element's CSS module rule, not on component props.")
+}
