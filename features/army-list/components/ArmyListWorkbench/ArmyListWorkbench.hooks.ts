@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import {
   type ChangeEvent,
   type FormEvent,
@@ -18,24 +19,40 @@ import {
 } from "./ArmyListWorkbench.data";
 import type { ListSourceControls, LoadedList } from "./ArmyListWorkbench.types";
 
-/** Holds the loaded list, the paper size and the state of loading one from a link. */
-export function useArmyListWorkbench() {
+/**
+ * Holds the loaded list, the paper size and the state of loading one from a
+ * link. The page's list id picks what loads: that list, or the sample when
+ * there is none. Loading a link goes to the list's own page.
+ */
+export function useArmyListWorkbench(routeListId: string | null) {
+  const router = useRouter();
   const [loaded, setLoaded] = useState<LoadedList | null>(null);
   const [paper, setPaper] = useState<PaperSize>("a4");
-  const [link, setLink] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [link, setLink] = useState(
+    () => parseRouteListId(routeListId)?.shareUrl ?? ""
+  );
+  // A list page paints the loading outline from the start, never an empty page.
+  const [isLoading, setIsLoading] = useState(routeListId !== null);
   const [error, setError] = useState<string | null>(null);
   const pendingLoad = useRef<AbortController | null>(null);
 
-  const loadSample = useEffectEvent(() => {
-    void load(SAMPLE_SOURCE);
+  const loadRouteList = useEffectEvent((id: string | null) => {
+    const listId = parseRouteListId(id);
+
+    if (listId === null) {
+      void load(SAMPLE_SOURCE);
+      return;
+    }
+
+    setLink(listId.shareUrl);
+    void load(linkSource(listId));
   });
 
   useEffect(() => {
-    loadSample();
+    loadRouteList(routeListId);
 
     return () => pendingLoad.current?.abort();
-  }, []);
+  }, [routeListId]);
 
   // Chrome names a printed PDF after the page title.
   const listTitle = loaded?.list.title;
@@ -105,7 +122,18 @@ export function useArmyListWorkbench() {
       return;
     }
 
-    void load(linkSource(listId));
+    if (listId.value === routeListId) {
+      void load(linkSource(listId));
+      return;
+    }
+
+    // The list's page does the load. Until it shows, hide the current sheet,
+    // so the sample never shows while the user's list is on its way.
+    pendingLoad.current?.abort();
+    pendingLoad.current = null;
+    setError(null);
+    setIsLoading(true);
+    router.push(listId.pagePath);
   };
 
   const handlePrint = () => {
@@ -121,4 +149,8 @@ export function useArmyListWorkbench() {
   };
 
   return { loaded, paper, setPaper, handlePrint, controls };
+}
+
+function parseRouteListId(id: string | null): ListId | null {
+  return id === null ? null : ListId.fromId(id);
 }

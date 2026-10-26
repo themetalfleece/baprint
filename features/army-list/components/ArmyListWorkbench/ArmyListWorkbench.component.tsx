@@ -7,13 +7,14 @@ import { ArmyListSheet } from "@/features/army-list/components/ArmyListSheet";
 import { PAPER_SIZE_OPTIONS } from "./ArmyListWorkbench.constants";
 import { useArmyListWorkbench } from "./ArmyListWorkbench.hooks";
 import styles from "./ArmyListWorkbench.module.css";
+import type { ArmyListWorkbenchProps } from "./ArmyListWorkbench.types";
 import { ListSourcePanel } from "./ListSourcePanel.component";
 import { LoadingSheet } from "./LoadingSheet.component";
 
 /** Loads a list from its share link and shows it as a printable sheet. */
-export function ArmyListWorkbench() {
+export function ArmyListWorkbench({ listId }: ArmyListWorkbenchProps) {
   const { loaded, paper, setPaper, handlePrint, controls } =
-    useArmyListWorkbench();
+    useArmyListWorkbench(listId);
   // A load in flight hides the current list, so the sample never shows while yours loads.
   const shown = controls.isLoading ? null : loaded;
 

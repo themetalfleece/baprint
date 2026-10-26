@@ -1,7 +1,9 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
+import { EasyArmyClient } from "@/features/army-list/server/EasyArmyClient";
 import { MAX_LIST_BYTES } from "@/features/army-list/server/fetchEasyArmyList";
 import { respondWithList } from "@/features/army-list/server/listRoute";
+import { Throttle } from "@/lib/throttle";
 
 const ID = "0b6c1a52-3f0e-4d7a-9c21-5e8f4a7b9d13";
 const SHARE_URL = `https://wg.easyarmy.com/BoltAction/ViewL/${ID}`;
@@ -41,6 +43,16 @@ function fakeEasyArmy(upstream: { json: Upstream; pdf?: Upstream }) {
   });
 }
 
+/** A fresh client with an empty cache and no throttle delay, so each test stands alone. */
+function respond(id: string, fetchFn: typeof fetch) {
+  const client = new EasyArmyClient({
+    fetch: fetchFn,
+    throttle: new Throttle({ intervalMs: 0, maxWaitMs: 0 }),
+  });
+
+  return respondWithList(id, { client });
+}
+
 async function bodyOf(response: Response) {
   return { status: response.status, body: await response.json() };
 }
@@ -50,7 +62,7 @@ describe("respondWithList", () => {
     const fetchSpy = fakeEasyArmy({ json: jsonOk });
 
     const { status, body } = await bodyOf(
-      await respondWithList(ID.toUpperCase(), { fetch: fetchSpy })
+      await respond(ID.toUpperCase(), fetchSpy)
     );
 
     expect(status).toBe(200);
@@ -77,9 +89,7 @@ describe("respondWithList", () => {
       () => new TypeError("fetch failed"),
     ]) {
       const { status, body } = await bodyOf(
-        await respondWithList(ID, {
-          fetch: fakeEasyArmy({ json: jsonOk, pdf }),
-        })
+        await respond(ID, fakeEasyArmy({ json: jsonOk, pdf }))
       );
 
       expect(status).toBe(200);
@@ -91,9 +101,7 @@ describe("respondWithList", () => {
   it("rejects an id that is not a GUID without calling EasyArmy", async () => {
     const fetchSpy = fakeEasyArmy({ json: jsonOk });
 
-    const response = await respondWithList("../../etc/passwd", {
-      fetch: fetchSpy,
-    });
+    const response = await respond("../../etc/passwd", fetchSpy);
 
     expect(await bodyOf(response)).toEqual({
       status: 400,
@@ -111,9 +119,10 @@ describe("respondWithList", () => {
     const redirect = () =>
       new Response(null, { status: 302, headers: { location: "/" } });
 
-    const response = await respondWithList(ID, {
-      fetch: fakeEasyArmy({ json: redirect, pdf: redirect }),
-    });
+    const response = await respond(
+      ID,
+      fakeEasyArmy({ json: redirect, pdf: redirect })
+    );
 
     expect(await bodyOf(response)).toMatchObject({
       status: 404,
@@ -127,9 +136,7 @@ describe("respondWithList", () => {
       () => new Response("<html>maintenance</html>"),
       () => new Response('{"hello": "world"}'),
     ]) {
-      const response = await respondWithList(ID, {
-        fetch: fakeEasyArmy({ json }),
-      });
+      const response = await respond(ID, fakeEasyArmy({ json }));
 
       expect(await bodyOf(response)).toMatchObject({
         status: 502,
@@ -139,26 +146,45 @@ describe("respondWithList", () => {
   });
 
   it("stops reading a body over the size cap", async () => {
-    const response = await respondWithList(ID, {
-      fetch: fakeEasyArmy({
+    const response = await respond(
+      ID,
+      fakeEasyArmy({
         json: () => new Response("x".repeat(MAX_LIST_BYTES + 1)),
-      }),
-    });
+      })
+    );
 
     expect(response.status).toBe(502);
   });
 
   it("reports a timeout and a network failure", async () => {
-    const timedOut = await respondWithList(ID, {
-      fetch: fakeEasyArmy({
+    const timedOut = await respond(
+      ID,
+      fakeEasyArmy({
         json: () => new DOMException("Timed out", "TimeoutError"),
-      }),
-    });
-    const failed = await respondWithList(ID, {
-      fetch: fakeEasyArmy({ json: () => new TypeError("fetch failed") }),
-    });
+      })
+    );
+    const failed = await respond(
+      ID,
+      fakeEasyArmy({ json: () => new TypeError("fetch failed") })
+    );
 
     expect(timedOut.status).toBe(504);
     expect(failed.status).toBe(502);
+  });
+
+  it("answers 429 when the throttle queue is full", async () => {
+    const fetchSpy = fakeEasyArmy({ json: jsonOk });
+    const throttle = new Throttle({ intervalMs: 2000, maxWaitMs: 0 });
+    await throttle.acquire();
+
+    const response = await respondWithList(ID, {
+      client: new EasyArmyClient({ fetch: fetchSpy, throttle }),
+    });
+
+    expect(await bodyOf(response)).toMatchObject({
+      status: 429,
+      body: { error: { code: "busy" } },
+    });
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });

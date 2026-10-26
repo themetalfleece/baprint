@@ -22,6 +22,11 @@ export interface ListSourceControls {
   onLinkSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 
+export interface ArmyListWorkbenchProps {
+  /** The lower case id of the list to load, or `null` to open on the sample. */
+  listId: string | null;
+}
+
 export interface ListSourcePanelProps {
   controls: ListSourceControls;
 }

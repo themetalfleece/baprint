@@ -22,6 +22,11 @@ export class ListId {
     return `${this.shareUrl}?ps=1`;
   }
 
+  /** This app's page that opens the list, a link to share or bookmark. */
+  get pagePath(): string {
+    return `/list/${this.value}`;
+  }
+
   /** Reads a bare id, or returns `null` when it is not a GUID. */
   static fromId(id: string): ListId | null {
     const trimmed = id.trim();

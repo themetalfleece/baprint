@@ -16,7 +16,9 @@ export function LegalNotice() {
       </p>
       <p>
         No accounts, cookies or analytics. A list you load is fetched from
-        EasyArmy for that request only and is not stored.
+        EasyArmy and kept only in the server's memory, for up to 10 minutes, so
+        loading it again does not ask EasyArmy twice. It is never written to
+        disk.
       </p>
       <p>
         Built with open source software:{" "}

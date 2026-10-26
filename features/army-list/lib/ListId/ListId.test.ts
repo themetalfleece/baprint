@@ -42,4 +42,8 @@ describe("ListId.fromId", () => {
       `https://wg.easyarmy.com/BoltAction/ViewL/${ID}?ps=1`
     );
   });
+
+  it("gives the app page for the list in lower case", () => {
+    expect(ListId.fromId(ID.toUpperCase())?.pagePath).toBe(`/list/${ID}`);
+  });
 });

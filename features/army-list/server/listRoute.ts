@@ -1,8 +1,10 @@
 import "server-only";
 import { ListId } from "@/features/army-list/lib/ListId";
-import type { RuleText } from "@/features/army-list/lib/RuleGlossary";
-import { fetchEasyArmyList, fetchEasyArmyRules } from "./fetchEasyArmyList";
+import { EasyArmyClient } from "./EasyArmyClient";
 import { UpstreamListError } from "./UpstreamListError";
+
+/** One client for the whole server, so its cache and throttle are shared by every request. */
+const sharedClient = new EasyArmyClient();
 
 /**
  * Answers `GET /api/lists/<id>` with `{ list, rules }`: the list's JSON and
@@ -12,7 +14,7 @@ import { UpstreamListError } from "./UpstreamListError";
  */
 export async function respondWithList(
   rawId: string,
-  options: { fetch?: typeof fetch } = {}
+  options: { client?: EasyArmyClient } = {}
 ): Promise<Response> {
   const listId = ListId.fromId(rawId);
 
@@ -24,19 +26,10 @@ export async function respondWithList(
     });
   }
 
-  // Both downloads run at once; a missing PDF only costs the descriptions.
-  const rules = fetchEasyArmyRules(listId, options).then(
-    (glossary): readonly RuleText[] | null => glossary.entries,
-    () => null
-  );
-
   try {
-    const list = await fetchEasyArmyList(listId, options);
+    const data = await (options.client ?? sharedClient).loadList(listId);
 
-    return Response.json(
-      { list, rules: await rules },
-      { headers: { "cache-control": "no-store" } }
-    );
+    return Response.json(data, { headers: { "cache-control": "no-store" } });
   } catch (error) {
     if (error instanceof UpstreamListError) {
       return errorResponse({

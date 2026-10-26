@@ -32,8 +32,6 @@
   }
 
   &:focus-visible {
-    outline: none;
     border-color: var(--ds-chrome-accent);
-    box-shadow: var(--ds-chrome-ring);
   }
 }

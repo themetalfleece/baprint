@@ -41,7 +41,7 @@ docker run -p 3000:3000 baprint
 
 ## Loading a list
 
-The page opens on a sample list so you can see what a printed sheet looks like. Loading your own replaces it; reload the page to see the sample again. The app serves the sample from its own copy in `features/army-list/fixtures/` through `GET /api/lists/sample`, built as a static file, so it does not depend on EasyArmy. Its special rules show placeholder text instead of the real descriptions; a list you load shows the real ones.
+The home page opens on a sample list so you can see what a printed sheet looks like. Loading your own goes to its own page, `/list/<id>`, which you can bookmark or share; open the home page again to see the sample. The app serves the sample from its own copy in `features/army-list/fixtures/` through `GET /api/lists/sample`, built as a static file, so it does not depend on EasyArmy. Its special rules show placeholder text instead of the real descriptions; a list you load shows the real ones.
 
 To get your list's share link:
 
@@ -57,6 +57,8 @@ EasyArmy does not let browsers read its lists, so the app fetches them on its ow
 - the PDF at the share link (capped at 5 MB), for the special-rule descriptions, which the JSON does not carry.
 
 If the PDF cannot be read, the list still loads and the rules show their names and pages only.
+
+To go easy on EasyArmy, the server keeps each fetched list in memory for 10 minutes (one minute when its PDF could not be read, so the descriptions get another try soon), and loads of the same list at the same moment share one fetch. Fetches from EasyArmy across the whole server are spaced at least 2 seconds apart; a load that would have to queue for more than 10 seconds gets a 429 asking to try again.
 
 ## Special rules
 

@@ -22,8 +22,6 @@
   --ds-color-text-secondary: var(--ds-color-ink-muted);
   --ds-color-border: var(--ds-color-ink);
   --ds-color-border-soft: var(--ds-color-rule);
-  --ds-color-focus: var(--ds-color-ink);
-  --ds-color-error: var(--ds-color-ink);
 
   /* Type */
   --ds-font-family-body: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -94,11 +92,12 @@
   --ds-chrome-highlight: #c9b26b;
   --ds-chrome-danger: #9a2b23;
   --ds-chrome-danger-soft: #fbedeb;
-  --ds-chrome-ring: 0 0 0 3pt rgb(74 90 42 / 0.28);
   --ds-chrome-shadow-card:
-    0 1px 2px rgb(34 39 26 / 0.06), 0 6px 20px rgb(34 39 26 / 0.07);
+    0 1px 2px color-mix(in srgb, var(--ds-chrome-hero) 6%, transparent),
+    0 6px 20px color-mix(in srgb, var(--ds-chrome-hero) 7%, transparent);
   --ds-chrome-shadow-raised:
-    0 2px 4px rgb(34 39 26 / 0.08), 0 14px 36px rgb(34 39 26 / 0.12);
+    0 2px 4px color-mix(in srgb, var(--ds-chrome-hero) 8%, transparent),
+    0 14px 36px color-mix(in srgb, var(--ds-chrome-hero) 12%, transparent);
   --ds-radius-md: 6pt;
   --ds-radius-lg: 10pt;
   --ds-chrome-gutter: 12mm;
