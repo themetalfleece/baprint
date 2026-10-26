@@ -39,6 +39,12 @@ docker build -t baprint .
 docker run -p 3000:3000 baprint
 ```
 
+Link previews need absolute URLs. The server builds them from the `X-Forwarded-Host` and `X-Forwarded-Proto` headers a reverse proxy sets, or from `Host`. Set `SITE_URL` (such as `https://baprint.example`) at runtime to fix the address instead.
+
+## Link previews
+
+Every page has a title, description and preview image for apps that unfurl links. The home page shows the app. A list page, `/list/<id>`, names the army (its first platoon's name), its countries and points, and its image shows the points, order dice, platoons and units. Both read the list through the same server cache as the page, so a shared link costs EasyArmy one fetch. A list that cannot be loaded falls back to the home preview.
+
 ## Loading a list
 
 The home page opens on a sample list so you can see what a printed sheet looks like. Loading your own goes to its own page, `/list/<id>`, which you can bookmark or share; open the home page again to see the sample. The app serves the sample from its own copy in `features/army-list/fixtures/` through `GET /api/lists/sample`, built as a static file, so it does not depend on EasyArmy. Its special rules show placeholder text instead of the real descriptions; a list you load shows the real ones.

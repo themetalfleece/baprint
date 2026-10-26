@@ -39,6 +39,14 @@ export class ArmyList {
     return [...new Set(countries)];
   }
 
+  /**
+   * The player's name for the army. EasyArmy has no list name, so this is the
+   * first platoon's name, which players use for the whole list. May be empty.
+   */
+  get name(): string {
+    return this.platoons[0]?.name ?? "";
+  }
+
   /** A name for the list, used as the page title so a saved PDF is named after it. */
   get title(): string {
     return [

@@ -17,6 +17,7 @@ describe("respondWithThirdPartyLicenses", () => {
       /^client-only \S+ \(MIT\)$/m,
       /^pdfjs-dist \S+ \(Apache-2\.0\)$/m,
       /^clsx \S+ \(MIT\)$/m,
+      /^@vercel\/og \S+ \(MPL-2\.0\)$/m,
     ]) {
       expect(body).toMatch(heading);
     }

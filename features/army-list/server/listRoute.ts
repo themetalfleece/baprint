@@ -1,10 +1,8 @@
 import "server-only";
 import { ListId } from "@/features/army-list/lib/ListId";
-import { EasyArmyClient } from "./EasyArmyClient";
+import type { EasyArmyClient } from "./EasyArmyClient";
+import { sharedEasyArmyClient } from "./sharedEasyArmyClient";
 import { UpstreamListError } from "./UpstreamListError";
-
-/** One client for the whole server, so its cache and throttle are shared by every request. */
-const sharedClient = new EasyArmyClient();
 
 /**
  * Answers `GET /api/lists/<id>` with `{ list, rules }`: the list's JSON and
@@ -27,7 +25,9 @@ export async function respondWithList(
   }
 
   try {
-    const data = await (options.client ?? sharedClient).loadList(listId);
+    const data = await (options.client ?? sharedEasyArmyClient).loadList(
+      listId
+    );
 
     return Response.json(data, { headers: { "cache-control": "no-store" } });
   } catch (error) {

@@ -20,6 +20,14 @@ const SHIPPED_PACKAGES: readonly (readonly string[])[] = [
   ["server-only"],
 ];
 
+/**
+ * Packages a shipped package carries precompiled in its own folder, so they
+ * are not installed on their own. `@vercel/og` draws the link preview images.
+ */
+const BUNDLED_PACKAGES: readonly { in: readonly string[]; at: string }[] = [
+  { in: ["next"], at: "dist/compiled/@vercel/og" },
+];
+
 const INTRO = `baprint: third-party software notices
 
 The app ships the open source packages below. Each is listed with its version
@@ -36,9 +44,12 @@ const SEPARATOR = `\n\n${"=".repeat(72)}\n\n`;
 export async function respondWithThirdPartyLicenses(
   root: string = process.cwd()
 ): Promise<Response> {
-  const licenses = await Promise.all(
-    SHIPPED_PACKAGES.map((chain) => PackageLicense.resolve(root, chain))
-  );
+  const licenses = await Promise.all([
+    ...SHIPPED_PACKAGES.map((chain) => PackageLicense.resolve(root, chain)),
+    ...BUNDLED_PACKAGES.map((bundled) =>
+      PackageLicense.resolve(root, bundled.in, bundled.at)
+    ),
+  ]);
   const body = [INTRO, ...licenses.map((license) => license.toText())].join(
     SEPARATOR
   );

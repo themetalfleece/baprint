@@ -67,6 +67,10 @@ describe("ArmyList.fromWire with the sample list", () => {
     expect(list.title).toBe("Bolt Action army list, United States, 998 pts");
   });
 
+  it("takes its name from the first platoon", () => {
+    expect(list.name).toBe("1000 GIs and Paras");
+  });
+
   it("gives every platoon, unit and entry a unique id", () => {
     const ids = list.platoons.flatMap((platoon) => [
       platoon.id,
@@ -116,6 +120,7 @@ describe("ArmyList.fromWire", () => {
     expect(list.points).toBe(60);
     expect(list.orderDice).toBe(1);
     expect(list.title).toBe("Bolt Action army list, 60 pts");
+    expect(list.name).toBe("");
   });
 
   it("reads string totals", () => {

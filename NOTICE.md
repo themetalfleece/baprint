@@ -14,7 +14,7 @@ The sample list in `features/army-list/fixtures/` (`easyarmy-sample-list.json` a
 
 ## Privacy
 
-The app has no accounts, cookies, analytics or storage on disk. When you load a list, the server fetches it from EasyArmy using the list id you give it and returns it to your browser. It keeps the list in memory for up to 10 minutes, so loading it again does not ask EasyArmy twice, and forgets it after that or when the server restarts. The list id is part of the page address (`/list/<id>`), so anyone you share that address with can open the list.
+The app has no accounts, cookies, analytics or storage on disk. When you load a list, the server fetches it from EasyArmy using the list id you give it and returns it to your browser. It keeps the list in memory for up to 10 minutes, so loading it again does not ask EasyArmy twice, and forgets it after that or when the server restarts. The list id is part of the page address (`/list/<id>`), so anyone you share that address with can open the list. Apps that unfurl links show a preview of a shared address: the army's name, countries, points, order dice, platoons and units.
 
 ## Third-party software
 
@@ -27,5 +27,7 @@ The app is built on these packages. Each keeps its own licence. The site serves 
 | [PDF.js](https://github.com/mozilla/pdf.js) (`pdfjs-dist`) | Apache-2.0 | Mozilla Foundation                  |
 | [clsx](https://github.com/lukeed/clsx)                     | MIT        | Luke Edwards                        |
 | [server-only](https://www.npmjs.com/package/server-only)   | MIT        | Vercel, Inc.                        |
+
+Next.js carries [`@vercel/og`](https://github.com/vercel/satori) (MPL-2.0, Vercel, Inc.) precompiled, and the app uses it to draw link preview images. It draws them in the [Geist](https://github.com/vercel/geist-font) font (SIL Open Font License 1.1, Vercel, Inc.), which Next.js ships with it.
 
 Development tools (Biome, TypeScript, Vitest, Vite) are not shipped with the app. Nor is sharp: the app does not use `next/image`, so `next.config.ts` keeps it out of the server build.

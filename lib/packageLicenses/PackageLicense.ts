@@ -29,16 +29,20 @@ export class PackageLicense {
    * Reads the package reached through `chain` from `root`. The first name is
    * resolved from `root` and each later one from the package before it, so
    * `["next", "@swc/helpers"]` reads the copy Next.js itself loads.
+   *
+   * @param bundledAt A folder inside the last package that holds a package
+   * it ships precompiled, such as `dist/compiled/@vercel/og` in Next.js.
    */
   static async resolve(
     root: string,
-    chain: readonly string[]
+    chain: readonly string[],
+    bundledAt = ""
   ): Promise<PackageLicense> {
     const dir = await chain.reduce<Promise<string>>(
       async (from, name) => findPackageDir(await from, name),
       Promise.resolve(root)
     );
-    return PackageLicense.read(dir);
+    return PackageLicense.read(path.join(dir, bundledAt));
   }
 
   /** Reads the package installed in `dir`. */

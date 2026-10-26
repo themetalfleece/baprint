@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import "@/components/ui/tokens.css";
 import "@/components/ui/reset.css";
+import { siteMetadata } from "@/features/army-list/server/pageMetadata";
 import styles from "./layout.module.css";
 
-export const metadata: Metadata = {
-  title: "baprint: Bolt Action list printer",
-  description:
-    "Turn an EasyArmy Bolt Action list into a clean, black and grey sheet for the table.",
-};
+export function generateMetadata(): Promise<Metadata> {
+  return siteMetadata();
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

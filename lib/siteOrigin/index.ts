@@ -1,0 +1,1 @@
+export { siteOrigin } from "./siteOrigin";
