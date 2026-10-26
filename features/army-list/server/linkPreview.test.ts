@@ -80,7 +80,7 @@ describe("listPageMetadata", () => {
 });
 
 describe("renderListSocialImage", () => {
-  it("draws the list once per cache lifetime", async () => {
+  it("draws the list and lets it be cached for a day", async () => {
     const { client, fetchSpy } = clientFor("list");
 
     await listPageMetadata(ID, client);
@@ -89,7 +89,7 @@ describe("renderListSocialImage", () => {
 
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toBe("image/png");
-    expect(response.headers.get("cache-control")).toBe("public, max-age=600");
+    expect(response.headers.get("cache-control")).toBe("public, max-age=86400");
     expect([...png.subarray(0, 4)]).toEqual(PNG_SIGNATURE);
     // The page's metadata and its image share one load: the JSON and the PDF.
     expect(fetchSpy).toHaveBeenCalledTimes(2);

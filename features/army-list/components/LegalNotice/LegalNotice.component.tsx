@@ -17,8 +17,8 @@ export function LegalNotice() {
       <p>
         No accounts, cookies or analytics. A list you load is fetched from
         EasyArmy and kept only in the server's memory, so loading it again does
-        not ask EasyArmy twice, until you refresh it or the server forgets it.
-        It is never written to disk.
+        not ask EasyArmy twice, until the server forgets it. It is never written
+        to disk.
       </p>
       <p>
         Built with open source software:{" "}

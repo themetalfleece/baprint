@@ -14,7 +14,7 @@ The sample list in `features/army-list/fixtures/` (`easyarmy-sample-list.json` a
 
 ## Privacy
 
-The app has no accounts, cookies, analytics or storage on disk. When you load a list, the server fetches it from EasyArmy using the list id you give it and returns it to your browser. It keeps the list in memory, so loading it again does not ask EasyArmy twice, until you refresh it, newer lists push it out or the server restarts. The list id is part of the page address (`/list/<id>`), so anyone you share that address with can open the list. Apps that unfurl links show a preview of a shared address: the army's name, countries, points, order dice, platoons and units.
+The app has no accounts, cookies, analytics or storage on disk. When you load a list, the server fetches it from EasyArmy using the list id you give it and returns it to your browser. It keeps the list in memory, so loading it again does not ask EasyArmy twice, until newer lists push it out or the server restarts. The list id is part of the page address (`/list/<id>`), so anyone you share that address with can open the list. Apps that unfurl links show a preview of a shared address: the army's name, countries, points, order dice, platoons and units.
 
 ## Third-party software
 

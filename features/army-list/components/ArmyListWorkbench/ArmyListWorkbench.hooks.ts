@@ -13,19 +13,16 @@ import type { PaperSize } from "@/features/army-list/components/ArmyListSheet/Ar
 import { INVALID_LINK_MESSAGE } from "./ArmyListWorkbench.constants";
 import {
   describeLoadError,
-  ListRouteError,
   type ListSource,
   linkSource,
   SAMPLE_SOURCE,
-  withRefreshWait,
 } from "./ArmyListWorkbench.data";
 import type { ListSourceControls, LoadedList } from "./ArmyListWorkbench.types";
 
 /**
  * Holds the loaded list, the paper size and the state of loading one from a
  * link. The page's list id picks what loads: that list, or the sample when
- * there is none. Loading a link goes to the list's own page. A loaded list
- * can be refreshed from EasyArmy once the server's cooldown for it has passed.
+ * there is none. Loading a link goes to the list's own page.
  */
 export function useArmyListWorkbench(routeListId: string | null) {
   const router = useRouter();
@@ -37,10 +34,6 @@ export function useArmyListWorkbench(routeListId: string | null) {
   // A list page paints the loading outline from the start, never an empty page.
   const [isLoading, setIsLoading] = useState(routeListId !== null);
   const [error, setError] = useState<string | null>(null);
-  // The list whose refresh cooldown has run out; any other list waits for its own.
-  const [refreshableList, setRefreshableList] = useState<LoadedList | null>(
-    null
-  );
   const pendingLoad = useRef<AbortController | null>(null);
 
   const loadRouteList = useEffectEvent((id: string | null) => {
@@ -77,21 +70,6 @@ export function useArmyListWorkbench(routeListId: string | null) {
     };
   }, [listTitle]);
 
-  useEffect(() => {
-    const freshness = loaded?.freshness ?? null;
-
-    if (loaded === null || freshness === null) {
-      return;
-    }
-
-    const timer = window.setTimeout(
-      () => setRefreshableList(loaded),
-      Math.max(0, freshness.refreshableAt - Date.now())
-    );
-
-    return () => window.clearTimeout(timer);
-  }, [loaded]);
-
   /**
    * Loads one list, cancelling any load still in flight so the latest one wins.
    * A sample that fails to load leaves the page empty rather than showing an
@@ -105,7 +83,7 @@ export function useArmyListWorkbench(routeListId: string | null) {
     setError(null);
 
     try {
-      const { list, glossary, freshness } = await source.fetchList({
+      const { list, glossary } = await source.fetchList({
         signal: controller.signal,
       });
       controller.signal.throwIfAborted();
@@ -115,7 +93,6 @@ export function useArmyListWorkbench(routeListId: string | null) {
         hasRuleTexts: glossary !== null,
         sourceLabel: source.label,
         isSample: source.isSample,
-        freshness,
       });
     } catch (loadError) {
       const message = describeLoadError(loadError);
@@ -123,24 +100,6 @@ export function useArmyListWorkbench(routeListId: string | null) {
       // A newer load replaced this one, so its failure is no longer news.
       if (message !== null && !source.isSample && !controller.signal.aborted) {
         setError(message);
-      }
-
-      // A failed refresh can still start the server's cooldown, so wait as long as it says.
-      if (
-        source.isRefresh &&
-        !controller.signal.aborted &&
-        loadError instanceof ListRouteError &&
-        loadError.refreshableInMs !== null
-      ) {
-        const waitMs = loadError.refreshableInMs;
-        setLoaded((previous) =>
-          previous === null || previous.freshness === null
-            ? previous
-            : {
-                ...previous,
-                freshness: withRefreshWait(previous.freshness, waitMs),
-              }
-        );
       }
     } finally {
       if (pendingLoad.current === controller) {
@@ -181,17 +140,6 @@ export function useArmyListWorkbench(routeListId: string | null) {
     window.print();
   };
 
-  const canRefresh =
-    loaded !== null && refreshableList === loaded && !isLoading;
-
-  const handleRefresh = () => {
-    const listId = parseRouteListId(routeListId);
-
-    if (listId !== null) {
-      void load(linkSource(listId, { refresh: true }));
-    }
-  };
-
   const controls: ListSourceControls = {
     link,
     isLoading,
@@ -200,15 +148,7 @@ export function useArmyListWorkbench(routeListId: string | null) {
     onLinkSubmit,
   };
 
-  return {
-    loaded,
-    paper,
-    setPaper,
-    handlePrint,
-    canRefresh,
-    handleRefresh,
-    controls,
-  };
+  return { loaded, paper, setPaper, handlePrint, controls };
 }
 
 function parseRouteListId(id: string | null): ListId | null {

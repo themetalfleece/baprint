@@ -7,8 +7,11 @@ import {
 } from "@/features/army-list/components/SocialCard";
 import { ListId } from "@/features/army-list/lib/ListId";
 import type { ListPreview } from "@/features/army-list/lib/ListPreview";
-import { type EasyArmyClient, REFRESH_COOLDOWN_MS } from "./EasyArmyClient";
+import type { EasyArmyClient } from "./EasyArmyClient";
 import { loadListPreview } from "./loadListPreview";
+
+/** A shared list is locked on EasyArmy, so its preview can be cached for a day. */
+const LIST_IMAGE_MAX_AGE_SECONDS = 24 * 60 * 60;
 
 export const SOCIAL_IMAGE_ALT =
   "baprint: a Bolt Action army list, ready to print";
@@ -50,9 +53,8 @@ export async function renderListSocialImage(
     return draw(HOME_CARD, { "cache-control": "no-store" });
   }
 
-  // A refresh can change the list at most once per cooldown.
   return draw(listCard(preview), {
-    "cache-control": `public, max-age=${REFRESH_COOLDOWN_MS / 1000}`,
+    "cache-control": `public, max-age=${LIST_IMAGE_MAX_AGE_SECONDS}`,
   });
 }
 

@@ -4,7 +4,6 @@ import { ListId } from "@/features/army-list/lib/ListId";
 import {
   EasyArmyClient,
   LIST_WITHOUT_RULES_TTL_MS,
-  REFRESH_COOLDOWN_MS,
 } from "@/features/army-list/server/EasyArmyClient";
 import { UpstreamListError } from "@/features/army-list/server/UpstreamListError";
 import { Throttle } from "@/lib/throttle";
@@ -58,87 +57,12 @@ describe("EasyArmyClient", () => {
     const { clock, client } = clientWith(fetchSpy);
     const id = requireId(LIST_ID);
 
-    clock.now = 5;
     const first = await client.loadList(id);
     clock.now = 365 * 24 * 60 * 60_000;
     const second = await client.loadList(id);
 
     expect(second).toBe(first);
-    expect(first.fetchedAt).toBe(5);
     expect(fetchSpy).toHaveBeenCalledTimes(2);
-  });
-
-  it("refreshes a list once its cooldown has passed", async () => {
-    const fetchSpy = fakeEasyArmy();
-    const { clock, client } = clientWith(fetchSpy);
-    const id = requireId(LIST_ID);
-
-    const first = await client.loadList(id);
-    clock.now = REFRESH_COOLDOWN_MS - 1;
-
-    expect(client.refreshWaitMs(id)).toBe(1);
-    await expect(client.refreshList(id)).rejects.toMatchObject({
-      code: "refresh_too_soon",
-    });
-    expect(fetchSpy).toHaveBeenCalledTimes(2);
-
-    clock.now = REFRESH_COOLDOWN_MS;
-    const refreshed = await client.refreshList(id);
-
-    expect(refreshed).not.toBe(first);
-    expect(refreshed.fetchedAt).toBe(REFRESH_COOLDOWN_MS);
-    expect(await client.loadList(id)).toBe(refreshed);
-    expect(client.refreshWaitMs(id)).toBe(REFRESH_COOLDOWN_MS);
-    expect(fetchSpy).toHaveBeenCalledTimes(4);
-  });
-
-  it("keeps the list in memory and starts the cooldown when a refresh fails", async () => {
-    let upstreamUp = true;
-    const fetchSpy = vi.fn<typeof fetch>(async (input) => {
-      if (!upstreamUp) {
-        return new Response("oops", { status: 500 });
-      }
-
-      return String(input).endsWith("?ps=1")
-        ? new Response(sampleJson)
-        : new Response(new Uint8Array(samplePdf));
-    });
-    const { clock, client } = clientWith(fetchSpy);
-    const id = requireId(LIST_ID);
-
-    const first = await client.loadList(id);
-    clock.now = REFRESH_COOLDOWN_MS;
-    upstreamUp = false;
-
-    await expect(client.refreshList(id)).rejects.toBeInstanceOf(
-      UpstreamListError
-    );
-    expect(await client.loadList(id)).toBe(first);
-    expect(client.refreshWaitMs(id)).toBe(REFRESH_COOLDOWN_MS);
-  });
-
-  it("joins a fetch in flight instead of refusing the refresh", async () => {
-    const fetchSpy = fakeEasyArmy();
-    const { client } = clientWith(fetchSpy);
-    const id = requireId(LIST_ID);
-
-    const [loaded, refreshed] = await Promise.all([
-      client.loadList(id),
-      client.refreshList(id),
-    ]);
-
-    expect(refreshed).toBe(loaded);
-    expect(fetchSpy).toHaveBeenCalledTimes(2);
-  });
-
-  it("does not start the cooldown when the throttle turns a fetch away", async () => {
-    const throttle = new Throttle({ intervalMs: 2000, maxWaitMs: 0 });
-    await throttle.acquire();
-    const { client } = clientWith(fakeEasyArmy(), throttle);
-    const id = requireId(LIST_ID);
-
-    await expect(client.loadList(id)).rejects.toMatchObject({ code: "busy" });
-    expect(client.refreshWaitMs(id)).toBe(0);
   });
 
   it("shares one fetch between loads of the same list in flight", async () => {
