@@ -9,6 +9,9 @@ describe("ListId.fromUserInput", () => {
     `https://wg.easyarmy.com/BoltAction/ViewL/${ID}?ps=1`,
     `http://wg.easyarmy.com/boltaction/viewl/${ID}/`,
     `wg.easyarmy.com/BoltAction/ViewL/${ID}`,
+    `https://wg.easyarmy.com/BoltAction/Platoon/${ID}/1`,
+    `https://wg.easyarmy.com/BoltAction/View/${ID.toUpperCase()}/1`,
+    `https://wg.easyarmy.com/BoltAction/Other/${ID}`,
     `  ${ID.toUpperCase()}  `,
   ])("reads %s", (input) => {
     expect(ListId.fromUserInput(input)?.value).toBe(ID);
@@ -19,8 +22,10 @@ describe("ListId.fromUserInput", () => {
     "not a list",
     `https://evil.example/BoltAction/ViewL/${ID}`,
     `https://wg.easyarmy.com.evil.example/BoltAction/ViewL/${ID}`,
-    `https://wg.easyarmy.com/BoltAction/Other/${ID}`,
     "https://wg.easyarmy.com/BoltAction/ViewL/123",
+    `https://wg.easyarmy.com/BoltAction/View/x${ID}/1`,
+    `https://wg.easyarmy.com/BoltAction/View/1?id=${ID}`,
+    `https://wg.easyarmy.com/BoltAction/${ID}/7d2e9f40-1a3b-4c5d-8e6f-0a1b2c3d4e5f`,
     `ftp://wg.easyarmy.com/BoltAction/ViewL/${ID}`,
   ])("rejects %s", (input) => {
     expect(ListId.fromUserInput(input)).toBeNull();

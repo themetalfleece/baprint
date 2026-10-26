@@ -35,3 +35,7 @@
     border-color: var(--ds-chrome-accent);
   }
 }
+
+.selectOnFocus {
+  cursor: pointer;
+}

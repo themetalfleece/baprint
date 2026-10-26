@@ -55,7 +55,7 @@ To get your list's share link:
 2. Press **View**, then **Output**, then **Lock to Share**.
 3. Open **Output** again and copy the **Share link**.
 
-Paste the link, such as `https://wg.easyarmy.com/BoltAction/ViewL/<id>`, or just the id, and press **Load list**.
+Paste the link, such as `https://wg.easyarmy.com/BoltAction/ViewL/<id>`, and press **Load list**. Any other wg.easyarmy.com link with the list's id in its path works too, such as `https://wg.easyarmy.com/BoltAction/Platoon/<id>/1`, and so does the bare id. The list still has to be locked to share.
 
 EasyArmy does not let browsers read its lists, so the app fetches them on its own server through `GET /api/lists/<id>`. That route accepts only a list id, builds the EasyArmy URLs itself, does not follow redirects, and gives up after 10 seconds. It reads two things:
 
@@ -64,7 +64,7 @@ EasyArmy does not let browsers read its lists, so the app fetches them on its ow
 
 If the PDF cannot be read, the list still loads and the rules show their names and pages only.
 
-To go easy on EasyArmy, the server keeps each fetched list in memory for 10 minutes (one minute when its PDF could not be read, so the descriptions get another try soon), and loads of the same list at the same moment share one fetch. Fetches from EasyArmy across the whole server are spaced at least 2 seconds apart; a load that would have to queue for more than 10 seconds gets a 429 asking to try again.
+To go easy on EasyArmy, the server keeps each fetched list in memory with no time limit (one minute when its PDF could not be read, so the descriptions get another try soon), up to 200 lists, and loads of the same list at the same moment share one fetch. To pick up changes made on EasyArmy, press **Refresh** above the sheet. It sends `POST /api/lists/<id>`, which fetches the list again; a list can be refreshed at most once every 10 minutes after its last fetch, and the button shows when it is next available. A refresh that fails keeps the copy you had. Fetches from EasyArmy across the whole server are spaced at least 2 seconds apart; a load that would have to queue for more than 10 seconds gets a 429 asking to try again.
 
 ## Special rules
 

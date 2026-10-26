@@ -1,6 +1,9 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
-import { EasyArmyClient } from "@/features/army-list/server/EasyArmyClient";
+import {
+  EasyArmyClient,
+  REFRESH_COOLDOWN_MS,
+} from "@/features/army-list/server/EasyArmyClient";
 import { MAX_LIST_BYTES } from "@/features/army-list/server/fetchEasyArmyList";
 import { respondWithList } from "@/features/army-list/server/listRoute";
 import { Throttle } from "@/lib/throttle";
@@ -44,13 +47,16 @@ function fakeEasyArmy(upstream: { json: Upstream; pdf?: Upstream }) {
 }
 
 /** A fresh client with an empty cache and no throttle delay, so each test stands alone. */
-function respond(id: string, fetchFn: typeof fetch) {
-  const client = new EasyArmyClient({
+function clientFor(fetchFn: typeof fetch, now?: () => number) {
+  return new EasyArmyClient({
     fetch: fetchFn,
     throttle: new Throttle({ intervalMs: 0, maxWaitMs: 0 }),
+    now,
   });
+}
 
-  return respondWithList(id, { client });
+function respond(id: string, fetchFn: typeof fetch) {
+  return respondWithList(id, { client: clientFor(fetchFn) });
 }
 
 async function bodyOf(response: Response) {
@@ -80,6 +86,45 @@ describe("respondWithList", () => {
       SHARE_URL,
       expect.objectContaining({ redirect: "manual" })
     );
+  });
+
+  it("says when the list was fetched and how long until it may be refreshed", async () => {
+    const clock = { now: 1000 };
+    const client = clientFor(fakeEasyArmy({ json: jsonOk }), () => clock.now);
+
+    await respondWithList(ID, { client });
+    clock.now = 61_000;
+    const { body } = await bodyOf(await respondWithList(ID, { client }));
+
+    expect(body.fetchedAt).toBe(1000);
+    expect(body.refreshableInMs).toBe(REFRESH_COOLDOWN_MS - 60_000);
+  });
+
+  it("refreshes the list on request once the cooldown has passed", async () => {
+    const clock = { now: 0 };
+    const fetchSpy = fakeEasyArmy({ json: jsonOk });
+    const client = clientFor(fetchSpy, () => clock.now);
+
+    await respondWithList(ID, { client });
+    const early = await respondWithList(ID, { client, refresh: true });
+
+    expect(await bodyOf(early)).toMatchObject({
+      status: 429,
+      body: {
+        error: { code: "refresh_too_soon" },
+        refreshableInMs: REFRESH_COOLDOWN_MS,
+      },
+    });
+
+    clock.now = REFRESH_COOLDOWN_MS;
+    const { status, body } = await bodyOf(
+      await respondWithList(ID, { client, refresh: true })
+    );
+
+    expect(status).toBe(200);
+    expect(body.fetchedAt).toBe(REFRESH_COOLDOWN_MS);
+    expect(body.refreshableInMs).toBe(REFRESH_COOLDOWN_MS);
+    expect(fetchSpy).toHaveBeenCalledTimes(4);
   });
 
   it("still answers with the list when the PDF cannot be read", async () => {
@@ -172,6 +217,21 @@ describe("respondWithList", () => {
     expect(failed.status).toBe(502);
   });
 
+  it("sends the refresh wait with a failed fetch, since the fetch started the cooldown", async () => {
+    const response = await respondWithList(ID, {
+      client: clientFor(
+        fakeEasyArmy({ json: () => new Response("oops", { status: 500 }) }),
+        () => 0
+      ),
+      refresh: true,
+    });
+
+    expect(await bodyOf(response)).toMatchObject({
+      status: 502,
+      body: { refreshableInMs: REFRESH_COOLDOWN_MS },
+    });
+  });
+
   it("answers 429 when the throttle queue is full", async () => {
     const fetchSpy = fakeEasyArmy({ json: jsonOk });
     const throttle = new Throttle({ intervalMs: 2000, maxWaitMs: 0 });
@@ -183,7 +243,7 @@ describe("respondWithList", () => {
 
     expect(await bodyOf(response)).toMatchObject({
       status: 429,
-      body: { error: { code: "busy" } },
+      body: { error: { code: "busy" }, refreshableInMs: 0 },
     });
     expect(fetchSpy).not.toHaveBeenCalled();
   });

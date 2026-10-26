@@ -7,7 +7,7 @@ import {
 } from "@/features/army-list/components/SocialCard";
 import { ListId } from "@/features/army-list/lib/ListId";
 import type { ListPreview } from "@/features/army-list/lib/ListPreview";
-import { type EasyArmyClient, LIST_TTL_MS } from "./EasyArmyClient";
+import { type EasyArmyClient, REFRESH_COOLDOWN_MS } from "./EasyArmyClient";
 import { loadListPreview } from "./loadListPreview";
 
 export const SOCIAL_IMAGE_ALT =
@@ -50,9 +50,9 @@ export async function renderListSocialImage(
     return draw(HOME_CARD, { "cache-control": "no-store" });
   }
 
-  // Kept as long as the server keeps the list.
+  // A refresh can change the list at most once per cooldown.
   return draw(listCard(preview), {
-    "cache-control": `public, max-age=${LIST_TTL_MS / 1000}`,
+    "cache-control": `public, max-age=${REFRESH_COOLDOWN_MS / 1000}`,
   });
 }
 

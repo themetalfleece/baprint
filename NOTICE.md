@@ -8,13 +8,13 @@ Bolt Action and Warlord Games are trademarks of Warlord Games Ltd. EasyArmy is a
 
 ## Game content
 
-Unit names, points, weapon stats and special rule text belong to Warlord Games Ltd. The app reads them from EasyArmy when a list is loaded and shows them unchanged, with the book and page to read each rule in. It keeps a copy only in the server's memory, for up to 10 minutes, and never writes it to disk. You need the Bolt Action rulebooks to play.
+Unit names, points, weapon stats and special rule text belong to Warlord Games Ltd. The app reads them from EasyArmy when a list is loaded and shows them unchanged, with the book and page to read each rule in. It keeps a copy only in the server's memory and never writes it to disk. You need the Bolt Action rulebooks to play.
 
 The sample list in `features/army-list/fixtures/` (`easyarmy-sample-list.json` and `easyarmy-sample-list.pdf`) is EasyArmy output. The special-rule descriptions in the PDF have been replaced with placeholder text; the unit names, points and stats are unchanged. That content belongs to Warlord Games, and the EasyArmy logo in the PDF belongs to EasyArmy. Neither is covered by this repository's MIT licence.
 
 ## Privacy
 
-The app has no accounts, cookies, analytics or storage on disk. When you load a list, the server fetches it from EasyArmy using the list id you give it and returns it to your browser. It keeps the list in memory for up to 10 minutes, so loading it again does not ask EasyArmy twice, and forgets it after that or when the server restarts. The list id is part of the page address (`/list/<id>`), so anyone you share that address with can open the list. Apps that unfurl links show a preview of a shared address: the army's name, countries, points, order dice, platoons and units.
+The app has no accounts, cookies, analytics or storage on disk. When you load a list, the server fetches it from EasyArmy using the list id you give it and returns it to your browser. It keeps the list in memory, so loading it again does not ask EasyArmy twice, until you refresh it, newer lists push it out or the server restarts. The list id is part of the page address (`/list/<id>`), so anyone you share that address with can open the list. Apps that unfurl links show a preview of a shared address: the army's name, countries, points, order dice, platoons and units.
 
 ## Third-party software
 

@@ -1,7 +1,6 @@
 /** A list id: a GUID, the form EasyArmy uses in its share links. */
 const GUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const SHARE_HOST = "wg.easyarmy.com";
-const SHARE_PATH = /^\/BoltAction\/ViewL\/([^/]+)\/?$/i;
 
 /** The id of a saved EasyArmy list. Only a strict GUID is ever accepted. */
 export class ListId {
@@ -35,10 +34,11 @@ export class ListId {
   }
 
   /**
-   * Reads what a user pastes: a share link such as
-   * `https://wg.easyarmy.com/BoltAction/ViewL/<id>`, with or without the
-   * scheme, any letter case or a query, or the bare id. Links to any other
-   * host or path are rejected.
+   * Reads what a user pastes: the bare id, or any EasyArmy link to the list,
+   * such as `https://wg.easyarmy.com/BoltAction/ViewL/<id>` or
+   * `.../BoltAction/Platoon/<id>/1`, with or without the scheme, any letter
+   * case or a query. The id is the one path segment that is a GUID. Links to
+   * another host, or with no GUID or several in the path, are rejected.
    */
   static fromUserInput(input: string): ListId | null {
     const trimmed = input.trim();
@@ -54,9 +54,11 @@ export class ListId {
       return null;
     }
 
-    const match = SHARE_PATH.exec(url.pathname);
+    const [id, ...others] = url.pathname
+      .split("/")
+      .filter((segment) => GUID.test(segment));
 
-    return match?.[1] === undefined ? null : ListId.fromId(match[1]);
+    return id === undefined || others.length > 0 ? null : ListId.fromId(id);
   }
 
   static #parseUrl(text: string): URL | null {

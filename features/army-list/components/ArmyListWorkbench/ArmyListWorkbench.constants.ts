@@ -2,7 +2,7 @@ import type { SegmentedControlOption } from "@/components/ui/SegmentedControl/Se
 import type { PaperSize } from "@/features/army-list/components/ArmyListSheet/ArmyListSheet.types";
 
 export const INVALID_LINK_MESSAGE =
-  "Paste a list's share link, such as https://wg.easyarmy.com/BoltAction/ViewL/…, or the id from one.";
+  "Paste a wg.easyarmy.com link to the list, such as its share link https://wg.easyarmy.com/BoltAction/ViewL/…, or the id from one.";
 
 export const PAPER_SIZE_OPTIONS: readonly SegmentedControlOption<PaperSize>[] =
   [

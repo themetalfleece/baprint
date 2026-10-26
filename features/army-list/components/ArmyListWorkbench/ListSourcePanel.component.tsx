@@ -24,6 +24,7 @@ export function ListSourcePanel({ controls }: ListSourcePanelProps) {
               spellCheck={false}
               inputMode="url"
               aria-describedby={stepsId}
+              selectOnFocus
             />
           </div>
           <Button type="submit" variant="primary" disabled={controls.isLoading}>

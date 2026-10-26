@@ -1,6 +1,8 @@
 import type { ChangeEvent, FormEvent } from "react";
 import type { ArmyList } from "@/features/army-list/lib/ArmyList";
 import type { SpecialRuleIndex } from "@/features/army-list/lib/SpecialRuleIndex";
+import type { ListFreshness } from "./ArmyListWorkbench.data";
+
 /** A list that rendered, with what it was loaded from. */
 export interface LoadedList {
   list: ArmyList;
@@ -11,6 +13,8 @@ export interface LoadedList {
   sourceLabel: string;
   /** Whether this is the sample list the page opens on. */
   isSample: boolean;
+  /** When the server fetched it from EasyArmy, or `null` for the sample. */
+  freshness: ListFreshness | null;
 }
 
 /** Everything the source panel needs to load a list. */
@@ -25,6 +29,11 @@ export interface ListSourceControls {
 export interface ArmyListWorkbenchProps {
   /** The lower case id of the list to load, or `null` to open on the sample. */
   listId: string | null;
+}
+
+export interface ListFreshnessNoteProps {
+  freshness: ListFreshness;
+  canRefresh: boolean;
 }
 
 export interface ListSourcePanelProps {

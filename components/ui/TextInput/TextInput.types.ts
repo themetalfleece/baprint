@@ -14,4 +14,6 @@ export interface TextInputProps
   > {
   /** The visible label above the field. */
   label: string;
+  /** Select the whole value when the field gains focus, and show a pointer cursor over it. */
+  selectOnFocus?: boolean;
 }
