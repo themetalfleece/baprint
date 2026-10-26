@@ -88,15 +88,40 @@ describe("Unit.fromWire", () => {
     expect(unit.hasOrderDie).toBe(true);
   });
 
-  it("reads ItemPEN and ItemPen alike", () => {
+  it("reads ItemPEN and ItemPen alike, showing n/a as a dash", () => {
     const sherman = Unit.fromWire(SHERMAN, { id: "unit" });
     const paratroopers = Unit.fromWire(PARATROOPERS, { id: "unit" });
 
-    expect(paratroopers.weapons[0]?.penetration).toBe("n/a");
+    expect(paratroopers.weapons[0]?.penetration).toBe("-");
     expect(sherman.weapons.map((weapon) => weapon.penetration)).toEqual([
       "+5",
-      "n/a",
+      "-",
     ]);
+  });
+
+  it("shows n/a as a dash in range and shots too", () => {
+    const unit = Unit.fromWire(
+      {
+        UnitName: "Test",
+        UnitItems: [
+          {
+            ItemSequence: "1",
+            ItemQuantity: "1",
+            ItemName: "Flamethrower",
+            ItemRange: "N/A",
+            ItemROF: "n/a",
+            ItemPEN: "+2",
+          },
+        ],
+      },
+      { id: "unit" }
+    );
+
+    expect(unit.weapons[0]).toMatchObject({
+      range: "-",
+      shots: "-",
+      penetration: "+2",
+    });
   });
 
   it("reads an item with no quantity that is not a gun as an upgrade", () => {

@@ -1,20 +1,36 @@
+import clsx from "clsx";
 import { ArmySummary } from "@/features/army-list/components/ArmySummary";
+import { QuickReferenceSheet } from "@/features/army-list/components/QuickReferenceSheet";
 import styles from "./ArmyListSheet.module.css";
-import type { ArmyListSheetProps } from "./ArmyListSheet.types";
+import type { ArmyListSheetProps, PaperSize } from "./ArmyListSheet.types";
 import { PickListSection } from "./PickListSection.component";
 import { PlatoonBlock } from "./PlatoonBlock.component";
 import { SpecialRulesSection } from "./SpecialRulesSection.component";
 
-/** The full printable list: every platoon and unit card, then rules and pick list. */
-export function ArmyListSheet({ list, rules }: ArmyListSheetProps) {
+/** Each class names an `@page` rule in `reset.css`. */
+const PAPER_CLASS_NAMES: Record<PaperSize, string | undefined> = {
+  a4: styles.a4Paper,
+  letter: styles.letterPaper,
+};
+
+/**
+ * The printable list. Page one is the summary, a quick reference of the whole
+ * army (print only) and the pick list; then a page per platoon, then the rules.
+ */
+export function ArmyListSheet({ list, rules, paper }: ArmyListSheetProps) {
   return (
-    <article className={styles.sheet}>
-      <ArmySummary list={list} />
+    <article className={clsx(styles.sheet, PAPER_CLASS_NAMES[paper])}>
+      <div className={styles.cover}>
+        <ArmySummary list={list} />
+        <div className={styles.printOnly}>
+          <QuickReferenceSheet list={list} />
+        </div>
+        <PickListSection items={list.pickList} />
+      </div>
       {list.platoons.map((platoon) => (
         <PlatoonBlock key={platoon.id} platoon={platoon} />
       ))}
       <SpecialRulesSection rules={rules} />
-      <PickListSection items={list.pickList} />
     </article>
   );
 }

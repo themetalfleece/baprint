@@ -1,0 +1,14 @@
+# Installed and built inside the image.
+node_modules
+.next
+*.tsbuildinfo
+next-env.d.ts
+
+# Local secrets. The app needs no environment variables.
+.env
+.env.*
+
+.git
+.claude
+Dockerfile
+.dockerignore

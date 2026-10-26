@@ -1,14 +1,8 @@
-/* Denser type than the full sheet, so a 1000 point list fits on one A4 page. */
-.sheet {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ds-space-8);
-  font-size: var(--ds-font-size-sm);
-  line-height: 1.25;
-}
-
+/* Denser type than the unit cards, so a 1000 point list fits on the first page with the summary and pick list. */
 .table {
   width: 100%;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.25;
 
   & thead th {
     padding: var(--ds-space-2) var(--ds-space-4);
@@ -141,40 +135,4 @@
 
 .option {
   font-style: italic;
-}
-
-.rules {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ds-space-3);
-  break-inside: avoid;
-}
-
-.rulesHeading {
-  padding-bottom: var(--ds-space-2);
-  border-bottom: 1.5pt solid var(--ds-color-border);
-  font:
-    var(--ds-font-weight-heavy) var(--ds-font-size-lg) / 1.2
-    var(--ds-font-family-body);
-  letter-spacing: var(--ds-letter-spacing-label);
-  text-transform: uppercase;
-}
-
-.ruleList {
-  columns: 3;
-  column-gap: var(--ds-space-12);
-  padding: 0;
-  list-style: none;
-}
-
-.rule {
-  break-inside: avoid;
-}
-
-.ruleName {
-  font-weight: var(--ds-font-weight-bold);
-}
-
-.ruleReference {
-  color: var(--ds-color-text-secondary);
 }

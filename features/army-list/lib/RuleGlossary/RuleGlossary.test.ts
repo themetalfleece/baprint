@@ -41,27 +41,27 @@ describe("RuleGlossary.fromPdfLines with the sample list", async () => {
 
   it("joins a description that wraps over several lines", () => {
     expect(byName.get("Assault")).toBe(
-      "(p66) This weapon suffers no penalty 'to hit' when moving and shooting. In addition, infantry models armed with an assault weapon count as tough fighters (page 91). When a tough fighter scores a casualty in close quarters against infantry or artillery, it can immediately make a second damage roll."
+      "(p66) Amet tempor nostrud et ullamco 'ad est' elit labore sit proident. Ex deserunt, pariatur dolore dolor enim ea laboris aliqua magna in minim occaecat (quis 91). Nisi l irure aliquip veniam o proident id velit deserunt commodo pariatur do consequat, ut sed consectetur duis r cillum fugiat aute."
     );
   });
 
   it("keeps the hyphens and minus signs the PDF stores as soft hyphens", () => {
     expect(byName.get("Shaped Charge")).toBe(
-      "(p73) Never suffer the -1 penetration modifier for firing at long range."
+      "(p73) Nulla mollit est -1 consectetur occaecat sit tempor ex amet culpa."
     );
-    expect(byName.get("Medics")).toContain("can self-medicate");
+    expect(byName.get("Medics")).toContain("esse-pariatur");
   });
 
   it("joins runs that change style mid-line with single spaces", () => {
     expect(byName.get('HE (2")')).toBe(
-      "(p68) PEN: +2, PIN: D3 (D6 if in building) - Infantry and artillery can go down to halve the hits taken"
+      "(p68) PEN: +2, PIN: D3 (D6 ad ex proident) - Deserunt sed cupidatat non ea down in dolor qui nisi magna"
     );
   });
 
   it("stops before the pick list", () => {
     expect(byName.has("Pick List")).toBe(false);
     expect(byName.get("Unarmed")).toBe(
-      "Unarmed men neither shoot nor attack in close quarters - their only value is as casualties"
+      "Ullamco non laboris lorem qui cillum et ipsum pariatur - dolor duis magna ad ex adipiscing"
     );
   });
 });

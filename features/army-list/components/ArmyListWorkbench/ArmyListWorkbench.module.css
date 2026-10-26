@@ -1,56 +1,162 @@
 .workbench {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-space-24);
+  gap: var(--ds-space-16);
 }
 
 .controls {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-space-12);
+  gap: var(--ds-space-16);
 
   @media print {
     display: none;
   }
 }
 
+/* The cards that hold the form, the status and the sheet's toolbar. */
+.sources,
+.status,
+.sheetBar {
+  border: var(--ds-rule-regular) solid var(--ds-chrome-line);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-chrome-surface);
+  box-shadow: var(--ds-chrome-shadow-card);
+}
+
 .sources {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-space-8);
+  gap: var(--ds-space-12);
+  padding: var(--ds-space-16) var(--ds-chrome-gutter);
 }
 
 .linkForm {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-space-6);
-  max-width: 120mm;
+  gap: var(--ds-space-12);
 }
 
-.actions {
+.linkRow {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--ds-space-6);
+  align-items: flex-end;
+  gap: var(--ds-space-8);
 }
 
-.status:empty {
-  display: none;
+.linkField {
+  flex: 1 1 80mm;
 }
 
-.status,
+/* Three numbered tiles that wrap to a column on a narrow screen. */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(48mm, 1fr));
+  gap: var(--ds-space-8);
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  font-size: var(--ds-font-size-md);
+  color: var(--ds-color-text-secondary);
+
+  /* The number sits in the left padding, so the step text wraps as one paragraph. */
+  & li {
+    position: relative;
+    padding: var(--ds-space-8) var(--ds-space-8) var(--ds-space-8) 32pt;
+    border-radius: var(--ds-radius-md);
+    background: var(--ds-chrome-backdrop);
+    counter-increment: step;
+  }
+
+  & li::before {
+    content: counter(step);
+    position: absolute;
+    top: var(--ds-space-8);
+    left: var(--ds-space-8);
+    display: grid;
+    place-items: center;
+    width: 16pt;
+    height: 16pt;
+    border-radius: 50%;
+    background: var(--ds-chrome-accent);
+    color: var(--ds-chrome-on-accent);
+    font: var(--ds-font-label);
+  }
+
+  & strong {
+    color: var(--ds-color-text);
+  }
+
+  & a {
+    color: var(--ds-chrome-accent-strong);
+    font-weight: var(--ds-font-weight-bold);
+    text-decoration: underline;
+    text-underline-offset: 2pt;
+  }
+}
+
 .error {
+  padding: var(--ds-space-8) var(--ds-space-12);
+  border-left: 3pt solid var(--ds-chrome-danger);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-chrome-danger-soft);
+  color: var(--ds-chrome-danger);
   font-weight: var(--ds-font-weight-bold);
 }
 
-.error {
-  padding: var(--ds-space-4) var(--ds-space-8);
-  border: 1.5pt solid var(--ds-color-error);
-  border-radius: var(--ds-radius-sm);
+.status {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-8);
+  padding: var(--ds-space-12) var(--ds-chrome-gutter);
+  color: var(--ds-chrome-accent-strong);
+  font: var(--ds-font-label);
+  letter-spacing: var(--ds-letter-spacing-label);
+  text-transform: uppercase;
+
+  &:empty {
+    display: none;
+  }
 }
 
-.notice {
-  font-size: var(--ds-font-size-md);
-  font-style: italic;
+.sheetBar {
+  overflow: hidden;
+}
+
+/* A tinted strip with an accent edge, so the sample cannot pass for your list. */
+.sampleBanner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-16) var(--ds-chrome-gutter);
+  border-left: 4pt solid var(--ds-chrome-accent);
+  border-bottom: var(--ds-rule-regular) solid var(--ds-chrome-line);
+  background: linear-gradient(
+    to right,
+    var(--ds-chrome-accent-soft),
+    var(--ds-chrome-surface)
+  );
+}
+
+.sampleTag {
+  padding: var(--ds-space-2) var(--ds-space-8);
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-chrome-accent);
+  color: var(--ds-chrome-on-accent);
+  font: var(--ds-font-label);
+  letter-spacing: var(--ds-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.sampleTitle {
+  font: var(--ds-font-heading);
+  font-size: var(--ds-font-size-2xl);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sampleText {
   color: var(--ds-color-text-secondary);
 }
 
@@ -58,16 +164,45 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--ds-space-12);
-  padding: var(--ds-space-6) 0;
-  border-top: var(--ds-rule-thin) solid var(--ds-color-border-soft);
-  border-bottom: var(--ds-rule-thin) solid var(--ds-color-border-soft);
+  padding: var(--ds-space-12) var(--ds-chrome-gutter);
 }
 
+/* Takes its own row when the layout controls need the width. */
 .loadedFrom {
-  flex: 1;
-  min-width: 0;
+  flex: 1 1 60mm;
   font-size: var(--ds-font-size-md);
   color: var(--ds-color-text-secondary);
   overflow-wrap: anywhere;
+}
+
+.notice {
+  padding: var(--ds-space-8) var(--ds-chrome-gutter);
+  border-top: var(--ds-rule-regular) solid var(--ds-chrome-line);
+  background: var(--ds-chrome-backdrop);
+  font-size: var(--ds-font-size-md);
+  font-style: italic;
+  color: var(--ds-color-text-secondary);
+}
+
+/* On screen the sheet is a sheet of paper; print drops the card. */
+.paper {
+  @media screen {
+    padding: var(--ds-chrome-gutter);
+    border-radius: var(--ds-radius-sm);
+    background: var(--ds-color-paper);
+    box-shadow: var(--ds-chrome-shadow-raised);
+  }
+
+  @media screen and (prefers-reduced-motion: no-preference) {
+    animation: fade-in 0.3s ease-out both;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4pt);
+  }
 }

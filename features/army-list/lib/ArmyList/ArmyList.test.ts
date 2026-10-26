@@ -63,6 +63,10 @@ describe("ArmyList.fromWire with the sample list", () => {
     expect(list.countries).toEqual(["United States"]);
   });
 
+  it("names itself by country and points", () => {
+    expect(list.title).toBe("Bolt Action army list, United States, 998 pts");
+  });
+
   it("gives every platoon, unit and entry a unique id", () => {
     const ids = list.platoons.flatMap((platoon) => [
       platoon.id,
@@ -111,6 +115,7 @@ describe("ArmyList.fromWire", () => {
 
     expect(list.points).toBe(60);
     expect(list.orderDice).toBe(1);
+    expect(list.title).toBe("Bolt Action army list, 60 pts");
   });
 
   it("reads string totals", () => {

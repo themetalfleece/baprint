@@ -1,6 +1,18 @@
-# wgeaprint
+# baprint
 
-Prints an EasyArmy Bolt Action list as a clean, black and grey A4 sheet. Unit cards never split across pages, and a quick reference mode fits a typical list on one page.
+A Bolt Action list printer. It prints an EasyArmy Bolt Action list as a clean, black and grey sheet. Unit cards never split across pages.
+
+## Page layout
+
+The print runs on A4 or US Letter, in this order:
+
+1. The army summary, a quick reference of the whole army (one dense row per unit) and the pick list.
+2. One page per platoon, with its unit cards.
+3. The special rules.
+
+A platoon or the rules can run over more than one page if they do not fit. The quick reference only appears in print; the screen shows the summary, pick list, platoons and rules.
+
+Weapon stats that EasyArmy gives as "n/a" print as "-".
 
 ## Run it
 
@@ -18,9 +30,26 @@ pnpm build
 PORT=3000 pnpm start
 ```
 
+## Deploy
+
+The `Dockerfile` builds the standalone server, for Dokploy or any Docker host. It needs no build arguments or environment variables and listens on port 3000.
+
+```bash
+docker build -t baprint .
+docker run -p 3000:3000 baprint
+```
+
 ## Loading a list
 
-Paste the list's share link, such as `https://wg.easyarmy.com/BoltAction/ViewL/<id>`, or just the id, and press **Load list**.
+The page opens on a sample list so you can see what a printed sheet looks like. Loading your own replaces it; reload the page to see the sample again. The app serves the sample from its own copy in `features/army-list/fixtures/` through `GET /api/lists/sample`, built as a static file, so it does not depend on EasyArmy. Its special rules show placeholder text instead of the real descriptions; a list you load shows the real ones.
+
+To get your list's share link:
+
+1. Open your list on [wg.easyarmy.com](https://wg.easyarmy.com/).
+2. Press **View**, then **Output**, then **Lock to Share**.
+3. Open **Output** again and copy the **Share link**.
+
+Paste the link, such as `https://wg.easyarmy.com/BoltAction/ViewL/<id>`, or just the id, and press **Load list**.
 
 EasyArmy does not let browsers read its lists, so the app fetches them on its own server through `GET /api/lists/<id>`. That route accepts only a list id, builds the EasyArmy URLs itself, does not follow redirects, and gives up after 10 seconds. It reads two things:
 
@@ -31,7 +60,17 @@ If the PDF cannot be read, the list still loads and the rules show their names a
 
 ## Special rules
 
-The full sheet lists each special rule with its description as EasyArmy prints it, the book and page to read it in, and the units that carry it. Where EasyArmy prints a variant under the same rule, such as "(75mm) HE (2")", it follows the main text. The quick reference keeps to names and pages so it fits on one page.
+The full sheet lists each special rule with its description as EasyArmy prints it, the book and page to read it in, and the units that carry it. Where EasyArmy prints a variant under the same rule, such as "(75mm) HE (2")", it follows the main text.
+
+## Legal
+
+This is an unofficial fan tool, not affiliated with, endorsed by or sponsored by Warlord Games Ltd or EasyArmy. Bolt Action is a trademark of Warlord Games Ltd, and the unit, points and rule content the app shows belongs to them. The site says so in its footer.
+
+The code is released under the [MIT License](LICENSE). The sample list in `features/army-list/fixtures/` is EasyArmy output, with its rule descriptions replaced by placeholder text, and is not covered by that licence. [NOTICE.md](NOTICE.md) lists the trademarks, the privacy position and the open source packages the app ships with; the site serves their full licence texts at `/third-party-licenses.txt`.
+
+## Contributing
+
+Issues and pull requests are welcome. Run the checks below before opening a pull request; they must all pass.
 
 ## Checks
 

@@ -75,4 +75,35 @@
 
   /* Layout */
   --ds-sheet-width: 190mm;
+
+  /*
+   * Screen chrome: the header, form, toolbar and footer around the sheet.
+   * Print hides all of it, so these are the only colours that are not grey.
+   * Never use them on the sheet.
+   */
+  --ds-chrome-backdrop: #f1eee5;
+  --ds-chrome-surface: #fff;
+  --ds-chrome-line: #e0dbcc;
+  --ds-chrome-accent: #4a5a2a;
+  --ds-chrome-accent-strong: #36421d;
+  --ds-chrome-accent-soft: #e9ecdd;
+  --ds-chrome-on-accent: #fbfaf4;
+  --ds-chrome-hero: #22271a;
+  --ds-chrome-hero-text: #f4f0e3;
+  --ds-chrome-hero-muted: #c3bfa9;
+  --ds-chrome-highlight: #c9b26b;
+  --ds-chrome-danger: #9a2b23;
+  --ds-chrome-danger-soft: #fbedeb;
+  --ds-chrome-ring: 0 0 0 3pt rgb(74 90 42 / 0.28);
+  --ds-chrome-shadow-card:
+    0 1px 2px rgb(34 39 26 / 0.06), 0 6px 20px rgb(34 39 26 / 0.07);
+  --ds-chrome-shadow-raised:
+    0 2px 4px rgb(34 39 26 / 0.08), 0 14px 36px rgb(34 39 26 / 0.12);
+  --ds-radius-md: 6pt;
+  --ds-radius-lg: 10pt;
+  --ds-chrome-gutter: 12mm;
+
+  @media screen and (max-width: 230mm) {
+    --ds-chrome-gutter: var(--ds-space-12);
+  }
 }

@@ -35,7 +35,7 @@ describe("readPdfTextLines", () => {
   it("marks bold runs from the font name", async () => {
     const lines = await readPdfTextLines(samplePdf());
     const name = lines.find((line) => line.text === "Shaped Charge");
-    const text = lines.find((line) => line.text.startsWith("(p73) Never"));
+    const text = lines.find((line) => line.text.startsWith("(p73) Nulla"));
 
     expect(name?.runs.every((run) => run.isBold)).toBe(true);
     expect(text?.runs.some((run) => run.isBold)).toBe(false);

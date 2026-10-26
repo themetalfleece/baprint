@@ -1,9 +1,10 @@
+/* On screen the sheet sits on a paper card, so the page is wider by the card's margins. */
 .main {
-  max-width: var(--ds-sheet-width);
+  max-width: calc(var(--ds-sheet-width) + 2 * var(--ds-chrome-gutter));
   margin: 0 auto;
   padding: 10mm 0;
 
-  @media screen and (max-width: 200mm) {
+  @media screen and (max-width: 230mm) {
     padding: var(--ds-space-12);
   }
 

@@ -189,20 +189,27 @@ export class Unit {
       id,
       quantity: readCount(record.ItemQuantity),
       name: readText(record.ItemName),
-      range: readText(record.ItemRange),
-      shots: readText(record.ItemROF),
-      penetration: Unit.#readPenetration(record),
+      range: Unit.#readStat(record.ItemRange),
+      shots: Unit.#readStat(record.ItemROF),
+      penetration: Unit.#readStat(Unit.#rawPenetration(record)),
       notes: splitItemNotes(readText(record.ItemNotes)),
     };
   }
 
   /** EasyArmy spells the field `ItemPEN` on infantry and `ItemPen` elsewhere. */
-  static #readPenetration(record: Record<string, unknown>): string {
+  static #rawPenetration(record: Record<string, unknown>): unknown {
     if (Object.hasOwn(record, "ItemPEN")) {
-      return readText(record.ItemPEN);
+      return record.ItemPEN;
     }
 
-    return readText(record.ItemPen);
+    return record.ItemPen;
+  }
+
+  /** A weapon stat as the sheet prints it: EasyArmy's "n/a" becomes "-". */
+  static #readStat(value: unknown): string {
+    const text = readText(value);
+
+    return text.toLowerCase() === "n/a" ? "-" : text;
   }
 
   static #bySequence(

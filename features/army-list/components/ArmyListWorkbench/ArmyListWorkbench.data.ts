@@ -10,19 +10,53 @@ export interface FetchedList {
   glossary: RuleGlossary | null;
 }
 
+/** Where a list comes from: the sample the page opens on, or a pasted link. */
+export interface ListSource {
+  /** Shown above the sheet. */
+  label: string;
+  isSample: boolean;
+  fetchList: (options: { signal: AbortSignal }) => Promise<FetchedList>;
+}
+
 /**
- * Loads a saved list through the app's own route, which fetches it from
+ * The list the page opens on, so a first visit shows what a printed sheet
+ * looks like. The app serves it from its own copy, not from EasyArmy.
+ */
+export const SAMPLE_SOURCE: ListSource = {
+  label: "a sample list",
+  isSample: true,
+  fetchList: (options) => fetchFromListRoute("/api/lists/sample", options),
+};
+
+/**
+ * A saved list, loaded through the app's own route, which fetches it from
  * EasyArmy on the server (EasyArmy does not let browsers read it directly).
+ */
+export function linkSource(listId: ListId): ListSource {
+  return {
+    label: listId.shareUrl,
+    isSample: false,
+    fetchList: (options) => fetchListById(listId, options),
+  };
+}
+
+/**
+ * Loads a saved list by id through the list route.
  *
  * @throws ListParseError with the route's message when it cannot provide the list.
  */
-export async function fetchListById(
+export function fetchListById(
   listId: ListId,
   options: { signal: AbortSignal }
 ): Promise<FetchedList> {
-  const response = await fetch(`/api/lists/${listId.value}`, {
-    signal: options.signal,
-  });
+  return fetchFromListRoute(`/api/lists/${listId.value}`, options);
+}
+
+async function fetchFromListRoute(
+  url: string,
+  options: { signal: AbortSignal }
+): Promise<FetchedList> {
+  const response = await fetch(url, { signal: options.signal });
   const body: unknown = await response.json().catch(() => null);
 
   if (!response.ok) {

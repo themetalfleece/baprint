@@ -1,35 +1,26 @@
 import styles from "./ArmyListSheet.module.css";
 import type { PickListSectionProps } from "./ArmyListSheet.types";
 
-/** The models to bring to the table, with counts. */
+/** The models to bring to the table, with counts, in a few short columns under the summary. */
 export function PickListSection({ items }: PickListSectionProps) {
   if (items.length === 0) {
     return null;
   }
 
   return (
-    <section className={styles.appendix}>
-      <h2 className={styles.appendixHeading}>Pick list</h2>
-      <table className={styles.pickList}>
-        <thead>
-          <tr>
-            <th scope="col">Model</th>
-            <th className={styles.pickCount} scope="col">
-              Count
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr key={item.id} className={styles.row}>
-              <td>{item.item}</td>
-              <td className={styles.pickCount}>
-                <span className={styles.pickTimes}>×</span> {item.quantity}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
+    <div className={styles.pickList}>
+      <h2 className={styles.sectionLabel}>Pick list</h2>
+      <ul className={styles.pickItems}>
+        {items.map((item) => (
+          <li key={item.id} className={styles.pickItem}>
+            <span className={styles.pickCount}>
+              {item.quantity}
+              <span className={styles.pickTimes}>×</span>
+            </span>
+            <span>{item.item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

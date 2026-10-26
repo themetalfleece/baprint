@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ListId } from "@/features/army-list/lib/ListId";
 
-const ID = "4f9e2111-d911-4a42-adb8-c4090971f82d";
+const ID = "0b6c1a52-3f0e-4d7a-9c21-5e8f4a7b9d13";
 
 describe("ListId.fromUserInput", () => {
   it.each([

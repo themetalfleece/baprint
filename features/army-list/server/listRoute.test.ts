@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { MAX_LIST_BYTES } from "@/features/army-list/server/fetchEasyArmyList";
 import { respondWithList } from "@/features/army-list/server/listRoute";
 
-const ID = "4f9e2111-d911-4a42-adb8-c4090971f82d";
+const ID = "0b6c1a52-3f0e-4d7a-9c21-5e8f4a7b9d13";
 const SHARE_URL = `https://wg.easyarmy.com/BoltAction/ViewL/${ID}`;
 const sampleJson = readFileSync(
   new URL("../fixtures/easyarmy-sample-list.json", import.meta.url),
@@ -58,7 +58,7 @@ describe("respondWithList", () => {
     expect(body.rules).toHaveLength(15);
     expect(body.rules).toContainEqual({
       name: "Shaped Charge",
-      text: "(p73) Never suffer the -1 penetration modifier for firing at long range.",
+      text: "(p73) Nulla mollit est -1 consectetur occaecat sit tempor ex amet culpa.",
     });
     expect(fetchSpy).toHaveBeenCalledWith(
       `${SHARE_URL}?ps=1`,

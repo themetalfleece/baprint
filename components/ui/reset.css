@@ -19,6 +19,10 @@ html {
   background: var(--ds-color-surface);
   color: var(--ds-color-text);
   print-color-adjust: exact;
+
+  @media screen {
+    background: var(--ds-chrome-backdrop);
+  }
 }
 
 body {
@@ -50,4 +54,13 @@ textarea {
 @page {
   size: A4;
   margin: 12mm 11mm 14mm;
+}
+
+/* Named pages a sheet can pick with the `page` property. */
+@page a4 {
+  size: A4;
+}
+
+@page letter {
+  size: letter;
 }

@@ -39,6 +39,15 @@ export class ArmyList {
     return [...new Set(countries)];
   }
 
+  /** A name for the list, used as the page title so a saved PDF is named after it. */
+  get title(): string {
+    return [
+      "Bolt Action army list",
+      ...this.countries,
+      `${this.points} pts`,
+    ].join(", ");
+  }
+
   /** How many units the list holds across all platoons. */
   get unitCount(): number {
     return this.platoons.reduce(

@@ -1,0 +1,124 @@
+.loadingSheet {
+  --placeholder-base: color-mix(
+    in srgb,
+    var(--ds-color-rule-faint) 55%,
+    var(--ds-color-paper)
+  );
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-12);
+
+  @media print {
+    display: none;
+  }
+}
+
+/* A fixed background lines the shimmer up across every bar. */
+.bar {
+  display: block;
+  height: 8pt;
+  border-radius: var(--ds-radius-sm);
+  background:
+    linear-gradient(
+      100deg,
+      var(--placeholder-base) 40%,
+      var(--ds-color-paper-tint) 50%,
+      var(--placeholder-base) 60%
+    )
+    0 0 / 200% 100% fixed;
+  animation: shimmer 1.4s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--ds-space-12);
+  padding-bottom: var(--ds-space-8);
+  border-bottom: var(--ds-rule-thick) solid var(--ds-color-rule-faint);
+}
+
+.titleGroup {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--ds-space-6);
+}
+
+.title {
+  width: min(70%, 90mm);
+  height: 18pt;
+}
+
+.subtitle {
+  width: 25mm;
+}
+
+.stats {
+  display: flex;
+  gap: var(--ds-space-6);
+}
+
+.stat {
+  width: 17mm;
+  height: 26pt;
+  border: var(--ds-rule-regular) solid var(--ds-color-rule-faint);
+  border-radius: var(--ds-radius-sm);
+}
+
+.sectionLabel {
+  width: 18mm;
+  height: 6pt;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70mm, 1fr));
+  gap: var(--ds-space-12);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-6);
+  padding: var(--ds-space-8);
+  border: var(--ds-rule-regular) solid var(--ds-color-rule-faint);
+  border-radius: var(--ds-radius-sm);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--ds-space-12);
+  padding-bottom: var(--ds-space-6);
+  border-bottom: var(--ds-rule-thin) solid var(--ds-color-rule-faint);
+}
+
+.cardName {
+  width: 55%;
+  height: 10pt;
+}
+
+.cardPoints {
+  width: 10mm;
+  height: 10pt;
+}
+
+.row {
+  width: 100%;
+}
+
+.rowShort {
+  width: 60%;
+}
+
+@keyframes shimmer {
+  to {
+    background-position-x: -200%;
+  }
+}

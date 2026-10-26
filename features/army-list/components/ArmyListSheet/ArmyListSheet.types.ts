@@ -9,9 +9,12 @@ import type {
   Weapon,
 } from "@/features/army-list/lib/Unit/Unit.types";
 
+export type PaperSize = "a4" | "letter";
+
 export interface ArmyListSheetProps {
   list: ArmyList;
   rules: SpecialRuleIndex;
+  paper: PaperSize;
 }
 
 export interface PlatoonBlockProps {
