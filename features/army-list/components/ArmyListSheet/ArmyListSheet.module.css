@@ -36,6 +36,13 @@
 
 /* Platoon */
 
+/* The print fit sets --print-fit on a platoon too tall for its page. */
+.platoon {
+  @media print {
+    zoom: var(--print-fit, 1);
+  }
+}
+
 .platoonHeader {
   display: flex;
   align-items: baseline;
