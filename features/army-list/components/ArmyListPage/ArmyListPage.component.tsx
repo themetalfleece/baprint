@@ -1,6 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { ArmyListWorkbench } from "@/features/army-list/components/ArmyListWorkbench";
 import { LegalNotice } from "@/features/army-list/components/LegalNotice";
+import { SourceLink } from "@/features/army-list/components/SourceLink";
 import { ListId } from "@/features/army-list/lib/ListId";
 import styles from "./ArmyListPage.module.css";
 import type { ArmyListPageProps } from "./ArmyListPage.types";
@@ -16,7 +17,10 @@ export function ArmyListPage({ listId }: ArmyListPageProps) {
   return (
     <>
       <header className={styles.hero}>
-        <p className={styles.kicker}>Bolt Action list printer</p>
+        <div className={styles.topRow}>
+          <p className={styles.kicker}>Bolt Action list printer</p>
+          <SourceLink className={styles.source}>GitHub</SourceLink>
+        </div>
         <h1 className={styles.title}>baprint</h1>
         <p className={styles.lede}>
           Load an EasyArmy Bolt Action list and print it as a clean, black and

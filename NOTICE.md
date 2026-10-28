@@ -6,6 +6,8 @@ baprint is an unofficial fan tool. It is not affiliated with, endorsed by or spo
 
 Bolt Action and Warlord Games are trademarks of Warlord Games Ltd. EasyArmy is a trademark of its owner. All other trademarks belong to their owners. The names are used only to say which lists the app reads.
 
+GitHub and the GitHub logo are trademarks of GitHub, Inc. The site uses the GitHub mark, drawn from GitHub's [Octicons](https://github.com/primer/octicons) (MIT, copyright GitHub Inc.), only to link to this repository.
+
 ## Game content
 
 Unit names, points, weapon stats and special rule text belong to Warlord Games Ltd. The app reads them from EasyArmy when a list is loaded and shows them unchanged, with the book and page to read each rule in. It keeps a copy only in the server's memory and never writes it to disk. You need the Bolt Action rulebooks to play.

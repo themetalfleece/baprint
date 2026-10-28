@@ -1,7 +1,16 @@
 {
   "name": "baprint",
   "private": true,
+  "description": "Bolt Action list printer",
   "license": "MIT",
+  "homepage": "https://github.com/themetalfleece/baprint",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/themetalfleece/baprint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/themetalfleece/baprint/issues"
+  },
   "type": "module",
   "packageManager": "pnpm@12.15.0",
   "engines": {

@@ -28,6 +28,37 @@
   }
 }
 
+/* The kicker with the repository link on the right. On a narrow screen the link wraps above the kicker. */
+.topRow {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  gap: var(--ds-space-6);
+}
+
+/* The banner's pills: the feature list and the GitHub link. */
+.source,
+.features li {
+  padding: var(--ds-space-3) var(--ds-space-8);
+  border: var(--ds-rule-regular) solid
+    color-mix(in srgb, var(--ds-chrome-hero-text) 22%, transparent);
+  border-radius: var(--ds-radius-pill);
+  background: color-mix(in srgb, var(--ds-chrome-hero-text) 6%, transparent);
+  font: var(--ds-font-label);
+  letter-spacing: 0.06em;
+  color: var(--ds-chrome-hero-text);
+}
+
+.source {
+  margin-left: auto;
+  text-decoration: none;
+
+  &:hover {
+    border-color: var(--ds-chrome-highlight);
+    color: var(--ds-chrome-highlight);
+  }
+}
+
 .kicker {
   font: var(--ds-font-label);
   letter-spacing: var(--ds-letter-spacing-wide);
@@ -54,17 +85,6 @@
   margin-top: var(--ds-space-6);
   padding: 0;
   list-style: none;
-
-  & li {
-    padding: var(--ds-space-3) var(--ds-space-8);
-    border: var(--ds-rule-regular) solid
-      color-mix(in srgb, var(--ds-chrome-hero-text) 22%, transparent);
-    border-radius: var(--ds-radius-pill);
-    background: color-mix(in srgb, var(--ds-chrome-hero-text) 6%, transparent);
-    font: var(--ds-font-label);
-    letter-spacing: 0.06em;
-    color: var(--ds-chrome-hero-text);
-  }
 
   & li::before {
     content: "\2713";

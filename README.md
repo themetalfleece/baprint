@@ -2,6 +2,8 @@
 
 A Bolt Action list printer. It prints an EasyArmy Bolt Action list as a clean, black and grey sheet. Unit cards never split across pages.
 
+Source code: [github.com/themetalfleece/baprint](https://github.com/themetalfleece/baprint)
+
 ## Page layout
 
 The print runs on A4 or US Letter, in this order:
@@ -78,7 +80,7 @@ The code is released under the [MIT License](LICENSE). The sample list in `featu
 
 ## Contributing
 
-Issues and pull requests are welcome. Run the checks below before opening a pull request; they must all pass.
+[Issues](https://github.com/themetalfleece/baprint/issues) and [pull requests](https://github.com/themetalfleece/baprint/pulls) are welcome. Run the checks below before opening a pull request; they must all pass.
 
 ## Checks
 
